@@ -1,0 +1,25 @@
+{
+  "name": "haxball-bot",
+  "version": "1.0.0",
+  "description": "Bot de HaxBall que saluda a los jugadores",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "haxball.js": "^2.0.12",
+    "https-proxy-agent": "^7.0.6",
+    "socks-proxy-agent": "^8.0.5"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "haxball",
+    "bot",
+    "nodejs"
+  ],
+  "author": "Tu nombre",
+  "license": "MIT"
+}
