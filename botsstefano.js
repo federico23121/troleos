@@ -30,8 +30,7 @@ const nickSelector = 'input[data-hook="input"][maxlength="25"]';
 await frame.waitForSelector(nickSelector, { timeout: 10000 });
 await frame.type(nickSelector, BOT_NICKNAME);
 
-
-        console.log("Haciendo clic en 'Join'...");
+console.log("Haciendo clic en 'Join'...");
 const joinButtonSelector = 'button[data-hook="ok"]';
 await frame.waitForSelector(joinButtonSelector, { timeout: 10000 });
 await frame.click(joinButtonSelector);
