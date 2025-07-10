@@ -2,19 +2,14 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
-const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=2kMEWKTJ7UQ";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm";
-
-const BOT_COUNT = 3; // Cambiá este número para más o menos bots
+// --- CONFIGURACIÓN ---
+const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=2kMEWKTJ7UQ"; // Poné tu link
+const BOT_NICKNAME = "thomazz.";
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
+// ----------------------
 
 async function main() {
-    for (let i = 1; i <= BOT_COUNT; i++) {
-        startBot(`thomazz.♻️🌎${i}`);
-    }
-}
-
-async function startBot(nick) {
-    console.log(`🤖 Iniciando ${nick}...`);
+    console.log("🤖 Iniciando el bot de Haxball...");
     const browser = await puppeteer.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -29,46 +24,53 @@ async function startBot(nick) {
         const iframeElement = await page.$('iframe');
         const frame = await iframeElement.contentFrame();
 
+        // Escribir el nick
+        console.log("Escribiendo el nombre de usuario...");
         const nickSelector = 'input[data-hook="input"][maxlength="25"]';
         await frame.waitForSelector(nickSelector, { timeout: 10000 });
-        await frame.type(nickSelector, nick);
+        await frame.type(nickSelector, BOT_NICKNAME);
 
+        // Hacer clic en "Join"
+        console.log("Haciendo clic en 'Join'...");
         const joinButtonSelector = 'button[data-hook="ok"]';
         await frame.waitForSelector(joinButtonSelector, { timeout: 10000 });
         await frame.click(joinButtonSelector);
 
-        console.log(`${nick} está entrando a la sala...`);
+        // Esperar que cargue la sala
+        console.log("Esperando a que se cargue la sala...");
         await new Promise(resolve => setTimeout(resolve, 5000));
-        console.log(`✅ ${nick} entró a la sala.`);
-        await notifyDiscord(`🟢 **${nick}** ha entrado a la sala.`);
 
-        // Enviar mensaje al chat cada 3 segundos
+        console.log("✅ ¡Bot dentro de la sala!");
+        await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
+
+        // Mensaje al chat cada 3 segundos
         setInterval(async () => {
-            await sendMessageToChat(frame, `Soy gay`);
+            await sendMessageToChat(frame, "Soy gay");
         }, 3000);
 
-        // Mover para evitar ser AFK
+        // Movimiento anti-AFK
         let moves = ['w', 'a', 's', 'd'];
         let moveIndex = 0;
         setInterval(() => {
             const key = moves[moveIndex % moves.length];
-            console.log(`${nick} presionando tecla: ${key}`);
+            console.log(`Presionando tecla: ${key}`);
             page.keyboard.press(key);
             moveIndex++;
         }, 5000);
 
-        // Mantener el bot vivo por 1 hora
+        // Mantenerlo vivo 1 hora
         await new Promise(resolve => setTimeout(resolve, 3600000));
 
     } catch (error) {
-        console.error(`❌ Error en ${nick}:`, error);
-        await notifyDiscord(`🔴 Error en **${nick}**: ${error.message}`);
+        console.error("❌ Error durante la ejecución del bot:", error);
+        await notifyDiscord(`🔴 Error al intentar conectar el bot. Causa: ${error.message}`);
     } finally {
-        console.log(`Cerrando ${nick}.`);
+        console.log("Cerrando el bot.");
         await browser.close();
     }
 }
 
+// Enviar mensaje a Discord
 async function notifyDiscord(message) {
     if (!DISCORD_WEBHOOK_URL) return;
     try {
@@ -82,6 +84,7 @@ async function notifyDiscord(message) {
     }
 }
 
+// Enviar mensaje al chat
 async function sendMessageToChat(frame, message) {
     try {
         const chatSelector = 'input[data-hook="input"][maxlength="140"]';
