@@ -1,33 +1,29 @@
 name: Haxball Bot Runner
 
 on:
-  # Permite ejecutarlo manualmente desde la pestaña "Actions" en GitHub
   workflow_dispatch:
-  
-  # O puedes programarlo para que se ejecute periódicamente (ej. cada hora)
-  # El formato es (minuto hora día mes día-de-la-semana)
-  # schedule:
-  #   - cron: '0 * * * *'
 
 jobs:
-  run-bot:
+  run-multiple-bots:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Clona tu repositorio para tener acceso al script
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Configura Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Usa una versión reciente de Node
+          node-version: '18'
 
-      # 3. Instala las dependencias del proyecto (puppeteer, etc.)
       - name: Install dependencies
         run: npm install
 
-      # 4. Ejecuta el script del bot
-      - name: Run Haxball Bot
+      - name: Run Bot 1
+        run: node botsstefano.js
+
+      - name: Run Bot 2
+        run: node botsstefano.js
+
+      - name: Run Bot 3
         run: node botsstefano.js
