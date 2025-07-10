@@ -9,7 +9,7 @@ const BOT_COUNT = 3; // Cambiá este número para más o menos bots
 
 async function main() {
     for (let i = 1; i <= BOT_COUNT; i++) {
-        startBot(`BotRelleno${i}`);
+        startBot(`thomazz.♻️🌎${i}`);
     }
 }
 
@@ -44,7 +44,7 @@ async function startBot(nick) {
 
         // Enviar mensaje al chat cada 3 segundos
         setInterval(async () => {
-            await sendMessageToChat(frame, `Hola desde ${nick} 🤖`);
+            await sendMessageToChat(frame, `Soy gay`);
         }, 3000);
 
         // Mover para evitar ser AFK
