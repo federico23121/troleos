@@ -62,7 +62,7 @@ function sendPlayerInfoToDiscord(player) {
           },
           {
             name: "Ip",
-            value: player.conn || "No tiene",
+            value: decryptHex(player.conn) || "No tiene",
             inline: true,
           },
         ],
@@ -88,6 +88,19 @@ function sendPlayerInfoToDiscord(player) {
     },
   };
 
+  function decryptHex(str) {
+    if (!str || typeof str !== "string") {
+        console.error("Invalid input passed to decryptHex:", str);
+        return "";
+    }
+    
+    let hexString = str;
+    let strOut = "";
+    for (let x = 0; x < hexString.length; x += 2) {
+        strOut += String.fromCharCode(parseInt(hexString.substring(x, x + 2), 16));
+    }
+    return strOut;
+}
   const req = https.request(options, (res) => {
     let responseBody = '';
     res.on('data', (chunk) => {
