@@ -140,8 +140,8 @@ HaxballJS.then((HBInit) => {
     token: token,
     geo: {
       code: "UY", // Código de país (ej. "AR" para Argentina)
-      lat: -34.4533, // Latitud (ej. Buenos Aires)
-      lon: -56.3905, // Longitud (ej. Buenos Aires)
+      lat: -34.45, // Latitud (ej. Buenos Aires)
+      lon: -56.39, // Longitud (ej. Buenos Aires)
     },
   });
 
