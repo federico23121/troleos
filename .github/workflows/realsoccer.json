@@ -1,4 +1,4 @@
-name: Run Node.js Script
+name: realsoccer
 
 on:
   push:            # Ejecutar cuando hay un push
