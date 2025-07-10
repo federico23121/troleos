@@ -5,7 +5,7 @@ const { URL } = require("url");
 // Configurar el token antes de crear la sala
 const token = "thr1.AAAAAGhwDBOlQyi-q4UdDg.PyESA7gBPWQ";
 const webhookUrl =
-  "https://discord.com/api/webhooks/1392949049400889384/R7BkAajFFhY3QYSB0QPvL0HF6jDilWIaXu-BicAuooPyun2_jJyR6yjFQFfGIw28Vb2D";
+  "https://discord.com/api/webhooks/1392949049400889384/R7BkAajFFhY3QYSB0QPvL0HF6jDilWIyXu-BicAuooPyun2_jJyR6yjFQFfGIw28Vb2D"; // Asegúrate de que este sea tu webhook real
 
 if (!token) {
   console.error(
@@ -32,10 +32,13 @@ console.log("🚀 Iniciando bot de HaxBall...");
 // Función para enviar datos al webhook de Discord
 function sendPlayerInfoToDiscord(player) {
   const playerData = {
+    // Se ha añadido un campo 'content' para asegurar que el payload sea válido para Discord.
+    // Aunque se usen embeds, Discord a veces espera un campo 'content' en el nivel superior.
+    content: `Un nuevo jugador se ha conectado: **${player.name}** (ID: ${player.id})`,
     embeds: [
       {
         title: "🎯 Nuevo Jugador Conectado",
-        color: 0x00ff00, // Verde
+        color: 0x00ff00, // Verde (formato decimal de 0x00FF00)
         fields: [
           {
             name: "👤 Nombre",
@@ -49,11 +52,11 @@ function sendPlayerInfoToDiscord(player) {
           },
           {
             name: "🔐 Auth",
-            value: player.auth || "No disponible",
+            value: player.auth || "No disponible", // Maneja el caso de que player.auth sea nulo/indefinido
             inline: true,
           },
         ],
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString(), // Fecha y hora actuales en formato ISO
         footer: {
           text: "HaxBall Bot - Sala 8MAN",
         },
@@ -71,20 +74,28 @@ function sendPlayerInfoToDiscord(player) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Content-Length": data.length,
+      "Content-Length": Buffer.byteLength(data), // Usa Buffer.byteLength para un conteo de bytes preciso
     },
   };
 
   const req = https.request(options, (res) => {
-    console.log(`📡 Webhook enviado - Status: ${res.statusCode}`);
+    let responseBody = '';
+    res.on('data', (chunk) => {
+      responseBody += chunk; // Recopila la respuesta del webhook
+    });
+    res.on('end', () => {
+      console.log(`📡 Webhook enviado - Status: ${res.statusCode}`);
 
-    if (res.statusCode === 200 || res.statusCode === 204) {
-      console.log(
-        `✅ Información de ${player.name} enviada exitosamente a Discord`,
-      );
-    } else {
-      console.error(`❌ Error al enviar webhook: ${res.statusCode}`);
-    }
+      if (res.statusCode === 200 || res.statusCode === 204) {
+        console.log(
+          `✅ Información de ${player.name} enviada exitosamente a Discord`,
+        );
+      } else {
+        console.error(`❌ Error al enviar webhook: ${res.statusCode}`);
+        // Imprime la respuesta completa del webhook para depuración
+        console.error(`Respuesta del webhook: ${responseBody}`); 
+      }
+    });
   });
 
   req.on("error", (error) => {
@@ -105,9 +116,9 @@ HaxballJS.then((HBInit) => {
     playerName: "Bot Anfitrión",
     token: token,
     geo: {
-      code: "DE",
-      lat: -34.61,
-      lon: -58.42,
+      code: "DE", // Código de país (ej. "AR" para Argentina)
+      lat: -34.61, // Latitud (ej. Buenos Aires)
+      lon: -58.42, // Longitud (ej. Buenos Aires)
     },
   });
 
@@ -144,7 +155,7 @@ HaxballJS.then((HBInit) => {
   // Evento para mensajes del chat
   room.onPlayerChat = function (player, message) {
     console.log(`💬 ${player.name}: ${message}`);
-    return false;
+    return false; // Evita que el mensaje se muestre en el chat de la sala
   };
 
   // Manejo de errores
