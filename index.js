@@ -3,7 +3,7 @@ const https = require("https");
 const { URL } = require("url");
 
 // Configurar el token antes de crear la sala
-const token = process.env["Token"];
+const token = "thr1.AAAAAGhwDBOlQyi-q4UdDg.PyESA7gBPWQ";
 const webhookUrl =
   "https://discord.com/api/webhooks/1392949049400889384/R7BkAajFFhY3QYSB0QPvL0HF6jDilWIaXu-BicAuooPyun2_jJyR6yjFQFfGIw28Vb2D";
 
