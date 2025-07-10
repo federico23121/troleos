@@ -105,7 +105,7 @@ HaxballJS.then((HBInit) => {
     playerName: "Bot Anfitrión",
     token: token,
     geo: {
-      code: "AR",
+      code: "DE",
       lat: -34.61,
       lon: -58.42,
     },
