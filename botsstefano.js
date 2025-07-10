@@ -25,9 +25,11 @@ async function main() {
         const iframeElement = await page.$('iframe');
         const frame = await iframeElement.contentFrame();
 
-        console.log("Escribiendo el nombre de usuario...");
-        await frame.waitForSelector('#nick', { timeout: 10000 });
-        await frame.type('#nick', BOT_NICKNAME);
+console.log("Escribiendo el nombre de usuario...");
+const nickSelector = 'input[data-hook="input"][maxlength="25"]';
+await frame.waitForSelector(nickSelector, { timeout: 10000 });
+await frame.type(nickSelector, BOT_NICKNAME);
+
 
         console.log("Haciendo clic en 'Join'...");
         await frame.click('#join');
