@@ -19,11 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Bot 1
-        run: node botsstefano.js
-
-      - name: Run Bot 2
-        run: node botsstefano.js
-
-      - name: Run Bot 3
-        run: node botsstefano.js
+      - name: Run 3 bots in parallel
+        run: |
+          node botsstefano.js &   # Bot 1
+          node botsstefano.js &   # Bot 2
+          node botsstefano.js &   # Bot 3
+          wait                    # Esperar a que terminen todos
