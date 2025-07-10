@@ -4,7 +4,7 @@ puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
 const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=2kMEWKTJ7UQ"; // Poné tu link
-const BOT_NICKNAME = "thomazz.♻️🌎";
+const BOT_NICKNAME = "figaln't";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
@@ -45,7 +45,7 @@ async function main() {
 
         // Mensaje al chat cada 3 segundos
         setInterval(async () => {
-            await sendMessageToChat(frame, "Me encanta la poronga bien larga");
+            await sendMessageToChat(frame, "Me gusta la verga peluda de @10IQ ");
         }, 500);
 
         // Movimiento anti-AFK
