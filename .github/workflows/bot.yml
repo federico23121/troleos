@@ -4,9 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-multiple-bots:
+  run-bot-stefano:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,9 +18,39 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run 3 bots in parallel
-        run: |
-          node botsstefano.js &   # Bot 1
-          node botsstefano.js &   # Bot 2
-          node botsstefano.js &   # Bot 3
-          wait                    # Esperar a que terminen todos
+      - name: Run bot stefano
+        run: node botsstefano.js
+
+  run-bot-roberto:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run bot roberto
+        run: node botsstefano.js
+
+  run-bot-lucas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run bot lucas
+        run: node botsstefano.js
