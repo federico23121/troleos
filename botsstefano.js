@@ -1,20 +1,18 @@
-// Usamos puppeteer-extra y el plugin de stealth para evitar ser detectados
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
-const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=psCuQmyFPYY"; // ¡Cámbiala por la URL de tu sala!
+const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=psCuQmyFPYY"; // ¡Cambia esto!
 const BOT_NICKNAME = "BotRelleno";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // ¡Pon aquí tu webhook!
-// --------------------
-
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // ¡Tu webhook!
+// ----------------------
 
 async function main() {
     console.log("🤖 Iniciando el bot de Haxball...");
     const browser = await puppeteer.launch({
-        headless: true, // true para que no se vea el navegador, false para depurar
-        args: ['--no-sandbox', '--disable-setuid-sandbox'] // Argumentos para que funcione en GitHub Actions
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
     const page = await browser.newPage();
@@ -23,12 +21,10 @@ async function main() {
         console.log(`Navegando a la sala: ${HAXBALL_ROOM_URL}`);
         await page.goto(HAXBALL_ROOM_URL, { waitUntil: 'networkidle2' });
 
-        // Esperar a que el iframe del lobby cargue
         await page.waitForSelector('iframe');
         const iframeElement = await page.$('iframe');
         const frame = await iframeElement.contentFrame();
 
-        // Interactuar dentro del iframe
         console.log("Escribiendo el nombre de usuario...");
         await frame.waitForSelector('#nick', { timeout: 10000 });
         await frame.type('#nick', BOT_NICKNAME);
@@ -36,15 +32,20 @@ async function main() {
         console.log("Haciendo clic en 'Join'...");
         await frame.click('#join');
 
-        // Esperar a entrar a la sala (verificando que desaparece el lobby)
         await page.waitForFunction(() => !document.querySelector('iframe'), { timeout: 20000 });
-        
-        console.log("✅ ¡Bot dentro de la sala!");
 
-        // Enviar notificación a Discord
+        console.log("✅ ¡Bot dentro de la sala!");
         await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
 
-        // Simular movimiento cada 5 segundos para no ser AFK
+        // Esperamos un poco a que cargue la interfaz completa
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        // 🧠 Intervalo para enviar mensajes al chat cada 3 segundos
+        setInterval(async () => {
+            await sendMessageToChat(frame, "🤖 ¡Estoy vivo!");
+        }, 3000);
+
+        // 🧠 Movimiento anti-AFK
         let moves = ['w', 'a', 's', 'd'];
         let moveIndex = 0;
         setInterval(() => {
@@ -52,10 +53,10 @@ async function main() {
             console.log(`Presionando tecla: ${key}`);
             page.keyboard.press(key);
             moveIndex++;
-        }, 5000); // 5000 ms = 5 segundos
+        }, 5000);
 
-        // Dejar el bot corriendo por un tiempo (ej. 1 hora) para no agotar los recursos de GitHub Actions
-        await new Promise(resolve => setTimeout(resolve, 3600000)); // 1 hora
+        // ⏳ Mantener el bot vivo por 1 hora
+        await new Promise(resolve => setTimeout(resolve, 3600000));
 
     } catch (error) {
         console.error("❌ Error durante la ejecución del bot:", error);
@@ -66,6 +67,7 @@ async function main() {
     }
 }
 
+// 📤 Notificación a Discord
 async function notifyDiscord(message) {
     if (!DISCORD_WEBHOOK_URL) return;
     try {
@@ -76,6 +78,20 @@ async function notifyDiscord(message) {
         });
     } catch (e) {
         console.error("Error al enviar notificación a Discord:", e);
+    }
+}
+
+// 💬 Enviar mensaje al chat del juego
+async function sendMessageToChat(frame, message) {
+    try {
+        const chatSelector = 'input[data-hook="input"][maxlength="140"]';
+        await frame.waitForSelector(chatSelector, { timeout: 5000 });
+        const chatInput = await frame.$(chatSelector);
+        await chatInput.type(message);
+        await chatInput.press('Enter');
+        console.log("Mensaje enviado al chat:", message);
+    } catch (e) {
+        console.error("Error al enviar mensaje al chat:", e);
     }
 }
 
