@@ -32,7 +32,9 @@ await frame.type(nickSelector, BOT_NICKNAME);
 
 
         console.log("Haciendo clic en 'Join'...");
-        await frame.click('#join');
+const joinButtonSelector = 'button[data-hook="ok"]';
+await frame.waitForSelector(joinButtonSelector, { timeout: 10000 });
+await frame.click(joinButtonSelector);
 
         await page.waitForFunction(() => !document.querySelector('iframe'), { timeout: 20000 });
 
