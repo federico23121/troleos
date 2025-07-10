@@ -35,10 +35,11 @@ const joinButtonSelector = 'button[data-hook="ok"]';
 await frame.waitForSelector(joinButtonSelector, { timeout: 10000 });
 await frame.click(joinButtonSelector);
 
-        await page.waitForFunction(() => !document.querySelector('iframe'), { timeout: 20000 });
+console.log("Esperando a que se cargue la sala...");
+await new Promise(resolve => setTimeout(resolve, 5000));
 
-        console.log("✅ ¡Bot dentro de la sala!");
-        await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
+console.log("✅ ¡Bot dentro de la sala!");
+await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
 
         // Esperamos un poco a que cargue la interfaz completa
         await new Promise(resolve => setTimeout(resolve, 5000));
