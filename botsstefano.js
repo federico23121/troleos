@@ -95,7 +95,7 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!llamaradmin @@hola geis");
+        await sendMessageToChat(frame, "!llamaradmin @@asd geis");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
