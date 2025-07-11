@@ -9,8 +9,7 @@ const BOT_NICKNAME = process.env.JOB_ID || "bot";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm";
 
 // Código del addon que se va a pegar - DEFINIR AQUÍ
-const ADDON_CODE = `
-module.exports = function(e){e.OperationType;var a=e.VariableType,t=(e.ConnectionState,e.AllowFlags),n=(e.Direction,e.CollisionFlags,e.CameraFollow,e.BackgroundType,e.GamePlayState,e.BanEntryType,e.Callback,e.Utils),Plugin=(e.Room,e.Replay,e.Query,e.Library,e.RoomConfig,e.Plugin);e.Renderer,e.Errors,e.Language,e.EventFactory,e.Impl;Object.setPrototypeOf(this,Plugin.prototype),Plugin.call(this,"autoPlay_followBall",!0,{version:"0.4",author:"abc",description:"This is an auto-playing bot that always follows the ball blindly, and kicks it whenever it is nearby without any direction checking. This bot uses real events and controls real players.",allowFlags:t.CreateRoom|t.JoinRoom}),this.defineVariable({name:"minCoordAlignDelta",description:"Minimum delta value for coordinate alignment",type:a.Number,value:.5,range:{min:0,max:10,step:.5}}),this.defineVariable({name:"minKickDistance",description:"Minimum distance between ball and bot player for the bot player to start kicking the ball",type:a.Number,value:8,range:{min:0,max:15,step:.5}});var o=this;this.onGameTick=function(e){var a;o.room.extrapolate();var t=o.room.currentPlayer,r=null==t||null===(a=t.disc)||void 0===a?void 0:a.ext;if(r){var i=o.room,s=(i.state,i.gameState),l=(s=i.gameStateExt||s).physicsState.discs[0],c=(null==l?void 0:l.pos)||{},d=c.x,u=c.y;if(null!=d&&!isNaN(d)&&isFinite(d)&&null!=u&&!isNaN(u)&&isFinite(u)){var m,h,p,f=d-r.pos.x,y=u-r.pos.y;m=Math.abs(f)<o.minCoordAlignDelta?0:Math.sign(f),h=Math.abs(y)<o.minCoordAlignDelta?0:Math.sign(y),p=f*f+y*y<(r.radius+l.radius+o.minKickDistance)*(r.radius+l.radius+o.minKickDistance),o.room.setKeyState(n.keyState(m,h,p))}}}}`;
+const ADDON_CODE = `module.exports = function(e){e.OperationType;var a=e.VariableType,t=(e.ConnectionState,e.AllowFlags),n=(e.Direction,e.CollisionFlags,e.CameraFollow,e.BackgroundType,e.GamePlayState,e.BanEntryType,e.Callback,e.Utils),Plugin=(e.Room,e.Replay,e.Query,e.Library,e.RoomConfig,e.Plugin);e.Renderer,e.Errors,e.Language,e.EventFactory,e.Impl;Object.setPrototypeOf(this,Plugin.prototype),Plugin.call(this,"autoPlay_followBall",!0,{version:"0.4",author:"abc",description:"This is an auto-playing bot that always follows the ball blindly, and kicks it whenever it is nearby without any direction checking. This bot uses real events and controls real players.",allowFlags:t.CreateRoom|t.JoinRoom}),this.defineVariable({name:"minCoordAlignDelta",description:"Minimum delta value for coordinate alignment",type:a.Number,value:.5,range:{min:0,max:10,step:.5}}),this.defineVariable({name:"minKickDistance",description:"Minimum distance between ball and bot player for the bot player to start kicking the ball",type:a.Number,value:8,range:{min:0,max:15,step:.5}});var o=this;this.onGameTick=function(e){var a;o.room.extrapolate();var t=o.room.currentPlayer,r=null==t||null===(a=t.disc)||void 0===a?void 0:a.ext;if(r){var i=o.room,s=(i.state,i.gameState),l=(s=i.gameStateExt||s).physicsState.discs[0],c=(null==l?void 0:l.pos)||{},d=c.x,u=c.y;if(null!=d&&!isNaN(d)&&isFinite(d)&&null!=u&&!isNaN(u)&&isFinite(u)){var m,h,p,f=d-r.pos.x,y=u-r.pos.y;m=Math.abs(f)<o.minCoordAlignDelta?0:Math.sign(f),h=Math.abs(y)<o.minCoordAlignDelta?0:Math.sign(y),p=f*f+y*y<(r.radius+l.radius+o.minKickDistance)*(r.radius+l.radius+o.minKickDistance),o.room.setKeyState(n.keyState(m,h,p))}}}}`;
 
 // ----------------------
 
@@ -74,7 +73,6 @@ async function main() {
         try {
             await page.waitForSelector(nickInputSelector, { timeout: 10000 });
             await page.click(nickInputSelector);
-            await page.keyboard.selectAll();
             await page.type(nickInputSelector, BOT_NICKNAME);
             await page.keyboard.press('Enter');
             console.log(`✅ Nick cambiado a: ${BOT_NICKNAME}`);
@@ -166,7 +164,10 @@ async function main() {
             
             // Seleccionar todo el texto existente y reemplazarlo
             await editorPage.click(textAreaSelector);
-            await editorPage.keyboard.selectAll();
+            // Seleccionar todo con Ctrl+A
+            await editorPage.keyboard.down('Control');
+            await editorPage.keyboard.press('KeyA');
+            await editorPage.keyboard.up('Control');
             await editorPage.keyboard.type(ADDON_CODE);
             
             console.log("✅ Código del addon pegado");
