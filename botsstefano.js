@@ -56,15 +56,12 @@ async function main() {
         
         // PASO 2: Cambiar nick
         console.log("🔧 Cambiando nick...");
-        const changeNickButtonSelector = 'button[class="c-iQrRSZ c-iQrRSZ-jKgaqm-color-c2"]';
-        
-        try {
-            await page.waitForSelector(changeNickButtonSelector, { timeout: 15000 });
-            await page.click(changeNickButtonSelector);
-            console.log("✅ Botón 'Change Nick' clickeado");
-        } catch (error) {
-            throw new Error(`No se pudo hacer clic en Change Nick: ${error.message}`);
-        }
+        await page.waitForSelector('button'); // espera a que cargue al menos un botón
+await page.evaluate(() => {
+  const buttons = Array.from(document.querySelectorAll('button'));
+  const okButton = buttons.find(btn => btn.textContent.trim() === 'OK');
+  if (okButton) okButton.click();
+});
         
         // Esperar a que aparezca el input del nick
         await new Promise(resolve => setTimeout(resolve, 2000));
