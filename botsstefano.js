@@ -74,7 +74,12 @@ async function main() {
             await page.waitForSelector(nickInputSelector, { timeout: 10000 });
             await page.click(nickInputSelector);
             await page.type(nickInputSelector, BOT_NICKNAME);
-            await page.keyboard.press('Enter');
+            
+            // Hacer clic en el botón OK en lugar de presionar Enter
+            const okButtonSelector = 'button[data-tooltip-content="Actualiza tu nick"]';
+            await page.waitForSelector(okButtonSelector, { timeout: 5000 });
+            await page.click(okButtonSelector);
+            
             console.log(`✅ Nick cambiado a: ${BOT_NICKNAME}`);
         } catch (error) {
             throw new Error(`No se pudo cambiar el nick: ${error.message}`);
@@ -87,8 +92,47 @@ async function main() {
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al cargar la sala')), 30000))
         ]);
         
-        // Esperar a que cargue la sala
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        // Buscar el iframe de Haxball
+        await page.waitForSelector('iframe', { timeout: 15000 });
+        const iframeElement = await page.$('iframe');
+        const frame = await iframeElement.contentFrame();
+        
+        if (!frame) {
+            throw new Error('No se pudo acceder al iframe de Haxball');
+        }
+        
+        // Escribir el nick en el iframe (por si acaso)
+        console.log("✍️ Escribiendo nick en la sala...");
+        const nickSelector = 'input[data-hook="input"][maxlength="25"]';
+        try {
+            await frame.waitForSelector(nickSelector, { timeout: 10000 });
+            await frame.type(nickSelector, BOT_NICKNAME);
+        } catch (error) {
+            console.log("ℹ️ No se encontró selector de nick en iframe o ya está configurado");
+        }
+        
+        // Hacer clic en "Join"
+        console.log("🚪 Haciendo clic en 'Join'...");
+        const joinButtonSelector = 'button[data-hook="ok"]';
+        try {
+            await frame.waitForSelector(joinButtonSelector, { timeout: 10000 });
+            await frame.click(joinButtonSelector);
+        } catch (error) {
+            console.log("ℹ️ No se encontró botón Join o ya está en la sala");
+        }
+        
+        // Esperar que cargue la sala y verificar que estamos dentro
+        console.log("⏳ Esperando a que se cargue la sala...");
+        await new Promise(resolve => setTimeout(resolve, 8000));
+        
+        // Verificar que estamos en la sala
+        try {
+            const chatSelector = 'input[data-hook="input"][maxlength="140"]';
+            await frame.waitForSelector(chatSelector, { timeout: 10000 });
+            console.log("✅ ¡Bot dentro de la sala!");
+        } catch (error) {
+            throw new Error('No se pudo verificar el acceso a la sala');
+        }
         
         // PASO 4: Configurar addon
         console.log("⚙️ Configurando addon...");
