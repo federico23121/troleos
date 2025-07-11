@@ -29,6 +29,112 @@ process.on('unhandledRejection', (reason, promise) => {
     handleCriticalError(new Error(reason), 'Promesa rechazada');
 });
 
+// Función auxiliar para encontrar y hacer clic en elementos de forma más robusta
+async function findAndClick(page, selectors, description, timeout = 10000) {
+    console.log(`🔍 Buscando ${description}...`);
+    
+    for (const selector of selectors) {
+        try {
+            await page.waitForSelector(selector, { timeout: timeout / selectors.length });
+            await page.click(selector);
+            console.log(`✅ ${description} encontrado y clickeado con selector: ${selector}`);
+            return true;
+        } catch (error) {
+            console.log(`⚠️ No se encontró ${description} con selector: ${selector}`);
+            continue;
+        }
+    }
+    
+    // Si no funciona ningún selector, intentar con evaluación de JavaScript
+    try {
+        const found = await page.evaluate((desc) => {
+            // Buscar por texto del botón
+            const buttons = Array.from(document.querySelectorAll('button'));
+            let target = null;
+            
+            if (desc.includes('OK')) {
+                target = buttons.find(btn => btn.textContent.trim() === 'OK');
+            } else if (desc.includes('nick')) {
+                const inputs = Array.from(document.querySelectorAll('input[type="text"]'));
+                target = inputs.find(input => input.placeholder && input.placeholder.toLowerCase().includes('nick'));
+                if (!target) {
+                    target = inputs[0]; // Tomar el primer input de texto
+                }
+            }
+            
+            if (target) {
+                target.click();
+                return true;
+            }
+            return false;
+        }, description);
+        
+        if (found) {
+            console.log(`✅ ${description} encontrado por evaluación de JavaScript`);
+            return true;
+        }
+    } catch (error) {
+        console.log(`⚠️ Error en evaluación de JavaScript para ${description}`);
+    }
+    
+    throw new Error(`No se pudo encontrar ${description} con ningún método`);
+}
+
+// Función para escribir texto de forma robusta
+async function typeText(page, selectors, text, description, timeout = 10000) {
+    console.log(`✍️ Escribiendo ${description}...`);
+    
+    for (const selector of selectors) {
+        try {
+            await page.waitForSelector(selector, { timeout: timeout / selectors.length });
+            await page.click(selector);
+            await page.keyboard.down('Control');
+            await page.keyboard.press('KeyA');
+            await page.keyboard.up('Control');
+            await page.type(selector, text);
+            console.log(`✅ ${description} escrito con selector: ${selector}`);
+            return true;
+        } catch (error) {
+            console.log(`⚠️ No se pudo escribir ${description} con selector: ${selector}`);
+            continue;
+        }
+    }
+    
+    // Método alternativo con evaluación JavaScript
+    try {
+        const success = await page.evaluate((txt, desc) => {
+            const inputs = Array.from(document.querySelectorAll('input[type="text"]'));
+            let target = null;
+            
+            if (desc.includes('nick')) {
+                target = inputs.find(input => input.placeholder && input.placeholder.toLowerCase().includes('nick'));
+                if (!target) {
+                    target = inputs[0]; // Tomar el primer input de texto
+                }
+            }
+            
+            if (target) {
+                target.focus();
+                target.select();
+                target.value = txt;
+                target.dispatchEvent(new Event('input', { bubbles: true }));
+                target.dispatchEvent(new Event('change', { bubbles: true }));
+                return true;
+            }
+            return false;
+        }, text, description);
+        
+        if (success) {
+            console.log(`✅ ${description} escrito por evaluación de JavaScript`);
+            return true;
+        }
+    } catch (error) {
+        console.log(`⚠️ Error en evaluación de JavaScript para escribir ${description}`);
+    }
+    
+    throw new Error(`No se pudo escribir ${description} con ningún método`);
+}
+
 async function main() {
     console.log("🤖 Iniciando el bot de Haxball...");
     
@@ -56,30 +162,50 @@ async function main() {
         
         // PASO 2: Cambiar nick
         console.log("🔧 Cambiando nick...");
-        await page.waitForSelector('button'); // espera a que cargue al menos un botón
-await page.evaluate(() => {
-  const buttons = Array.from(document.querySelectorAll('button'));
-  const okButton = buttons.find(btn => btn.textContent.trim() === 'OK');
-  if (okButton) okButton.click();
-});
+        await page.waitForSelector('button', { timeout: 15000 }); // espera a que cargue al menos un botón
+        
+        // Hacer clic en OK inicial si aparece
+        try {
+            await findAndClick(page, [
+                'button[data-tooltip-content="Actualiza tu nick"]',
+                'button.c-iQrRSZ',
+                'button'
+            ], 'botón OK inicial', 5000);
+        } catch (error) {
+            console.log("ℹ️ No se encontró botón OK inicial o no es necesario");
+        }
         
         // Esperar a que aparezca el input del nick
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
         
-        const nickInputSelector = 'input.c-gpVEjg[type="text"]';
+        // Múltiples selectores posibles para el input del nick
+        const nickInputSelectors = [
+            'input.c-gpVEjg[type="text"]',
+            'input[type="text"]',
+            'input[placeholder*="nick"]',
+            'input[placeholder*="Nick"]',
+            'input[placeholder*="nombre"]',
+            'input[placeholder*="name"]'
+        ];
+        
         try {
-            await page.waitForSelector(nickInputSelector, { timeout: 10000 });
-            await page.click(nickInputSelector);
-            await page.type(nickInputSelector, BOT_NICKNAME);
-            
-            // Hacer clic en el botón OK en lugar de presionar Enter
-            const okButtonSelector = 'button[data-tooltip-content="Actualiza tu nick"]';
-            await page.waitForSelector(okButtonSelector, { timeout: 5000 });
-            await page.click(okButtonSelector);
+            await typeText(page, nickInputSelectors, BOT_NICKNAME, 'nick', 15000);
+        } catch (error) {
+            throw new Error(`No se pudo escribir el nick: ${error.message}`);
+        }
+        
+        // Hacer clic en el botón OK para confirmar el nick
+        try {
+            await findAndClick(page, [
+                'button[data-tooltip-content="Actualiza tu nick"]',
+                'button.c-iQrRSZ',
+                'button:contains("OK")',
+                'button'
+            ], 'botón OK para confirmar nick', 10000);
             
             console.log(`✅ Nick cambiado a: ${BOT_NICKNAME}`);
         } catch (error) {
-            throw new Error(`No se pudo cambiar el nick: ${error.message}`);
+            console.log("⚠️ No se pudo hacer clic en OK, pero el nick podría estar configurado");
         }
         
         // PASO 3: Ir a la sala
@@ -103,6 +229,10 @@ await page.evaluate(() => {
         const nickSelector = 'input[data-hook="input"][maxlength="25"]';
         try {
             await frame.waitForSelector(nickSelector, { timeout: 10000 });
+            await frame.click(nickSelector);
+            await frame.keyboard.down('Control');
+            await frame.keyboard.press('KeyA');
+            await frame.keyboard.up('Control');
             await frame.type(nickSelector, BOT_NICKNAME);
         } catch (error) {
             console.log("ℹ️ No se encontró selector de nick en iframe o ya está configurado");
@@ -217,7 +347,6 @@ await page.evaluate(() => {
         }
         
         // Hacer clic en el botón "Save"
-        const saveButtonSelector = 'button';
         try {
             // Buscar el botón Save específicamente
             const saveButton = await editorPage.evaluateHandle(() => {
