@@ -100,7 +100,7 @@ async function main() {
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "Raid por Stefano365P: https://discord.gg/Xpc4hZvr5S");
+                await sendMessageToChat(frame, "Lolxd");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
