@@ -18,13 +18,11 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install dependencies and rebuild native modules
         run: |
-          npm cache clean --force
-          npm install --unsafe-perm # Add this line
-          # Ensure that wrtc is correctly installed
-          # If still encountering issues, consider adding 'npm rebuild @koush/wrtc' here
-          # but `npm install --unsafe-perm` should handle it.
+          npm cache clean --force # Clear the npm cache to ensure fresh downloads
+          npm install --unsafe-perm # Install dependencies, allowing unsafe permissions for native module compilation
+          npm rebuild @koush/wrtc # Explicitly rebuild the wrtc module
 
       - name: Run bots batch ${{ matrix.batch }}
         env:
