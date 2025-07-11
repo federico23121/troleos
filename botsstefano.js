@@ -4,7 +4,7 @@ puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
 const HAXBALL_ROOM_URL = process.env.HAXBALL_ROOM_URL; // Poné tu link
-const BOT_NICKNAME = "Arg.Becken" + process.env.JOB_ID || "bot";
+const BOT_NICKNAME = "lucho.105" + process.env.JOB_ID || "bot";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
@@ -95,18 +95,18 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "Vamos a atacar la ip de cada jugador que se haya metido a nuestros host falso de hax arg");
+        await sendMessageToChat(frame, "!llamaradmin megustalavergitaaguda");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "Vamos a atacar la ip de cada jugador que se haya metido a nuestros host falso de hax arg");
+                await sendMessageToChat(frame, "Quien me folla me presto tio");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 5000);
+        }, 3000);
         
         // Movimiento anti-AFK con manejo de errores
         let moves = ['w', 'a', 's', 'd'];
