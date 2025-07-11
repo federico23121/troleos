@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        batch: [1,2,3,4,5,6,7,8,9,10]  # 10 batches x 7 bots = 70 bots
+        batch: [1,2,3,4,5,6,7,8,9,10]
     steps:
       - uses: actions/checkout@v3
 
@@ -19,7 +19,12 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm cache clean --force
+          npm install --unsafe-perm # Add this line
+          # Ensure that wrtc is correctly installed
+          # If still encountering issues, consider adding 'npm rebuild @koush/wrtc' here
+          # but `npm install --unsafe-perm` should handle it.
 
       - name: Run bots batch ${{ matrix.batch }}
         env:
