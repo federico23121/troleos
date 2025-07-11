@@ -95,7 +95,7 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!duo invite 219");
+        await sendMessageToChat(frame, "!llamaradmin stefano");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
@@ -106,7 +106,7 @@ async function main() {
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 500);
+        }, 3000);
         
         // Movimiento anti-AFK con manejo de errores
         let moves = ['w', 'a', 's', 'd'];
