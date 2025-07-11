@@ -95,12 +95,12 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!voteban @Cris_mj gay");
+        await sendMessageToChat(frame, "!voteban 13083 gay");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "Que significa el bro respeta");
+                await sendMessageToChat(frame, "Adriana salte");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
