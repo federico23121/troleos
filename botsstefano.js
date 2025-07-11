@@ -3,8 +3,8 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
-const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=ol-UuKZ__WQ"; // Poné tu link
-const BOT_NICKNAME = "BareHorse";
+const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=i5DSNwY5pyA"; // Poné tu link
+const BOT_NICKNAME = "Miku Hatsune gei";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
@@ -46,7 +46,7 @@ async function main() {
         sendMessageToChat(frame, "!llamaradmin");
         // Mensaje al chat cada 3 segundos
         setInterval(async () => {
-            await sendMessageToChat(frame, "Soy tremendo boton");
+            await sendMessageToChat(frame, "Viva el cp");
         }, 5000);
 
         // Movimiento anti-AFK
