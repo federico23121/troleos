@@ -4,7 +4,7 @@ puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
 const HAXBALL_ROOM_URL = process.env.HAXBALL_ROOM_URL; // Poné tu link
-const BOT_NICKNAME = "pichi" + process.env.JOB_ID || "bot";
+const BOT_NICKNAME = "LaGrasa" + process.env.JOB_ID || "bot";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
@@ -95,7 +95,7 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "Me gusta bien peluda y negra");
+        await sendMessageToChat(frame, "!llamaradmin @@hola geis");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
