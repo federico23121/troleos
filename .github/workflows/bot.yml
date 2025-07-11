@@ -6,6 +6,9 @@ on:
 jobs:
   run-bot-1:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "1"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,6 +19,9 @@ jobs:
 
   run-bot-2:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "2"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,6 +32,9 @@ jobs:
 
   run-bot-3:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "3"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -36,6 +45,9 @@ jobs:
 
   run-bot-4:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "4"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -46,6 +58,9 @@ jobs:
 
   run-bot-5:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "5"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -56,6 +71,9 @@ jobs:
 
   run-bot-6:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "6"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -66,6 +84,9 @@ jobs:
 
   run-bot-7:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "7"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -76,6 +97,9 @@ jobs:
 
   run-bot-8:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "8"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -86,6 +110,9 @@ jobs:
 
   run-bot-9:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "9"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -96,6 +123,9 @@ jobs:
 
   run-bot-10:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "10"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -106,6 +136,9 @@ jobs:
 
   run-bot-11:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "11"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -116,6 +149,9 @@ jobs:
 
   run-bot-12:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "12"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -126,6 +162,9 @@ jobs:
 
   run-bot-13:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "13"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -136,6 +175,9 @@ jobs:
 
   run-bot-14:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "14"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -146,6 +188,9 @@ jobs:
 
   run-bot-15:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "15"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -156,6 +201,9 @@ jobs:
 
   run-bot-16:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "16"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -166,6 +214,9 @@ jobs:
 
   run-bot-17:
     runs-on: ubuntu-latest
+    env:
+      JOB_ID: "17"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -176,26 +227,9 @@ jobs:
 
   run-bot-18:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      - run: npm install
-      - run: node botsstefano.js
-
-  run-bot-19:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      - run: npm install
-      - run: node botsstefano.js
-
-  run-bot-20:
-    runs-on: ubuntu-latest
+    env:
+      JOB_ID: "18"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
