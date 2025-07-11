@@ -176,57 +176,41 @@ async function main() {
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al cargar node-haxball')), 30000))
         ]);
         
-        
-        
-    // --- Inside your main() function ---
+// --- Inside your main() function ---
 
 // PASO 2: Cambiar nick
 console.log("🔧 Cambiando nick...");
 
-// A short delay can help ensure the elements are ready
-await new Promise(resolve => setTimeout(resolve, 2000));
-
-// Múltiples selectores posibles para el input del nick
-// SIMPLIFIED: Let's target the most likely selector first.
-const nickInputSelectors = [
-    'input.c-gpVEjg[type="text"]', // Keep this as it's specific
-    'input[type="text"]'           // A reliable fallback
-];
-
-// PRIMERO: Escribir el nick
+// Wait for the popup to be visible. We can target its unique title.
+const popupTitleSelector = 'h1.c-eXwJve:contains("Elegir nick")';
 try {
-    // We don't need to click to change the nick first, we just type in the visible field.
-    await typeText(page, nickInputSelectors, BOT_NICKNAME, 'nick', 15000);
-    console.log(`✅ Nick escrito: ${BOT_NICKNAME}`);
+    await page.waitForSelector(popupTitleSelector, { timeout: 15000 });
+    console.log("✅ Popup 'Elegir nick' encontrado.");
 } catch (error) {
-    // If typing fails, it might be because we first need to click "Cambiar nick"
-    console.log("⚠️ Escribir nick falló, intentando abrir el popup de cambio de nick...");
-    try {
-        await findAndClick(page, ['button:contains("Cambiar nick")'], 'botón "Cambiar nick"');
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for popup
-        await typeText(page, nickInputSelectors, BOT_NICKNAME, 'nick en popup', 15000);
-        console.log(`✅ Nick escrito en popup: ${BOT_NICKNAME}`);
-    } catch (e) {
-        throw new Error(`No se pudo escribir el nick, ni siquiera abriendo el popup: ${e.message}`);
-    }
+    throw new Error("No se encontró el popup para elegir nick a tiempo.");
 }
 
-// SEGUNDO: Hacer clic en el botón OK para confirmar el nick
-// This might not be necessary if typing the name auto-confirms, but it's good practice.
-// The button is likely a generic "OK" button.
-try {
-    await findAndClick(page, [
-        'button:contains("OK")', // Search for a button with the text "OK"
-        '.c-iQrRSZ'              // A generic button class selector as a fallback
-    ], 'botón OK para confirmar nick', 5000);
+// Selectors within the popup context
+const nickInputSelector = 'div.c-eVIWsa input[type="text"]';
+const okButtonSelector = 'button.c-iQrRSZ:contains("OK")';
 
+// PRIMERO: Escribir el nick en el popup
+try {
+    await typeText(page, [nickInputSelector], BOT_NICKNAME, 'nick en popup', 10000);
+    console.log(`✅ Nick escrito en popup: ${BOT_NICKNAME}`);
+} catch (error) {
+    throw new Error(`No se pudo escribir el nick en el popup: ${error.message}`);
+}
+
+// SEGUNDO: Hacer clic en el botón OK para confirmar
+try {
+    await findAndClick(page, [okButtonSelector], 'botón OK en popup', 10000);
     console.log(`✅ Nick confirmado: ${BOT_NICKNAME}`);
 } catch (error) {
-    console.log("ℹ️ No se encontró un botón 'OK' para confirmar el nick, puede que no sea necesario.");
+    throw new Error(`No se pudo hacer clic en el botón OK del popup: ${error.message}`);
 }
 
-// ... rest of your code
-        
+// ... rest of your code        
         // PASO 3: Ir a la sala
         console.log("🚪 Yendo a la sala...");
         await Promise.race([
