@@ -4,7 +4,7 @@ puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
 const HAXBALL_ROOM_URL = process.env.HAXBALL_ROOM_URL; // Poné tu link
-const BOT_NICKNAME = "Depredador sexual" + process.env.JOB_ID || "bot";
+const BOT_NICKNAME = "Stefano365P" + process.env.JOB_ID || "bot";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
@@ -95,134 +95,35 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!llamaradmin @@asd geis");
+        await sendMessageToChat(frame, "!duo invite 219");
         
-        // Sistema para seguir la pelota
-        let currentKeys = new Set();
-        let lastBallPosition = null;
-        
-        const ballFollowInterval = setInterval(async () => {
-            try {
-                // Buscar la pelota amarilla en el canvas
-                const ballPosition = await frame.evaluate(() => {
-                    const canvas = document.querySelector('canvas');
-                    if (!canvas) return null;
-                    
-                    const ctx = canvas.getContext('2d');
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const data = imageData.data;
-                    
-                    let yellowPixels = [];
-                    
-                    // Buscar píxeles amarillos (pelota)
-                    for (let i = 0; i < data.length; i += 4) {
-                        const r = data[i];
-                        const g = data[i + 1];
-                        const b = data[i + 2];
-                        
-                        // Detectar color amarillo (valores aproximados)
-                        if (r > 200 && g > 200 && b < 100) {
-                            const pixelIndex = i / 4;
-                            const x = pixelIndex % canvas.width;
-                            const y = Math.floor(pixelIndex / canvas.width);
-                            yellowPixels.push({ x, y });
-                        }
-                    }
-                    
-                    if (yellowPixels.length === 0) return null;
-                    
-                    // Calcular centro de la pelota
-                    const centerX = yellowPixels.reduce((sum, p) => sum + p.x, 0) / yellowPixels.length;
-                    const centerY = yellowPixels.reduce((sum, p) => sum + p.y, 0) / yellowPixels.length;
-                    
-                    return {
-                        x: centerX,
-                        y: centerY,
-                        canvasWidth: canvas.width,
-                        canvasHeight: canvas.height
-                    };
-                });
-                
-                if (ballPosition) {
-                    // Calcular centro del canvas (posición del jugador)
-                    const playerX = ballPosition.canvasWidth / 2;
-                    const playerY = ballPosition.canvasHeight / 2;
-                    
-                    // Calcular diferencia
-                    const deltaX = ballPosition.x - playerX;
-                    const deltaY = ballPosition.y - playerY;
-                    
-                    // Umbral mínimo para evitar movimientos micro
-                    const threshold = 10;
-                    
-                    let newKeys = new Set();
-                    
-                    // Determinar teclas necesarias
-                    if (Math.abs(deltaX) > threshold) {
-                        if (deltaX > 0) {
-                            newKeys.add('d'); // Derecha
-                        } else {
-                            newKeys.add('a'); // Izquierda
-                        }
-                    }
-                    
-                    if (Math.abs(deltaY) > threshold) {
-                        if (deltaY > 0) {
-                            newKeys.add('s'); // Abajo
-                        } else {
-                            newKeys.add('w'); // Arriba
-                        }
-                    }
-                    
-                    // Soltar teclas que ya no necesitamos
-                    for (let key of currentKeys) {
-                        if (!newKeys.has(key)) {
-                            await page.keyboard.up(key);
-                        }
-                    }
-                    
-                    // Presionar nuevas teclas
-                    for (let key of newKeys) {
-                        if (!currentKeys.has(key)) {
-                            await page.keyboard.down(key);
-                        }
-                    }
-                    
-                    currentKeys = newKeys;
-                    
-                    console.log(`🎯 Pelota en (${Math.round(ballPosition.x)}, ${Math.round(ballPosition.y)}), moviendo: ${Array.from(newKeys).join(', ')}`);
-                    
-                } else {
-                    // No se encontró la pelota, soltar todas las teclas
-                    for (let key of currentKeys) {
-                        await frame.keyboard.up(key);
-                    }
-                    currentKeys.clear();
-                    console.log("🔍 Buscando pelota...");
-                }
-                
-            } catch (error) {
-                console.error("Error al seguir la pelota:", error);
-                // Soltar todas las teclas en caso de error
-                for (let key of currentKeys) {
-                    try {
-                        await frame.keyboard.up(key);
-                    } catch (e) {}
-                }
-                currentKeys.clear();
-            }
-        }, 100); // Revisar cada 100ms para movimiento fluido
-        
-        // Mensaje al chat cada 30 segundos (reducido para no ser spam)
+        // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "siguiendo la pelota como un pro");
+                await sendMessageToChat(frame, "Raid por Stefano365P: https://discord.gg/Xpc4hZvr5S");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 30000);
+        }, 500);
+        
+        // Movimiento anti-AFK con manejo de errores
+        let moves = ['w', 'a', 's', 'd'];
+        let moveIndex = 0;
+        
+        const moveInterval = setInterval(async () => {
+            try {
+                const key = moves[moveIndex % moves.length];
+                console.log(`Presionando tecla: ${key}`);
+                await page.keyboard.press(key);
+                moveIndex++;
+            } catch (error) {
+                console.error("Error al presionar tecla:", error);
+                clearInterval(moveInterval);
+                throw new Error('Perdida de conexión con el juego');
+            }
+        }, 5000);
         
         // Verificar conexión cada 30 segundos
         const healthCheck = setInterval(async () => {
@@ -234,7 +135,7 @@ async function main() {
                 console.error("❌ Fallo en verificación de conexión");
                 clearInterval(healthCheck);
                 clearInterval(chatInterval);
-                clearInterval(ballFollowInterval);
+                clearInterval(moveInterval);
                 throw new Error('Perdida de conexión con el servidor');
             }
         }, 30000);
@@ -244,11 +145,8 @@ async function main() {
         
         // Limpiar intervalos
         clearInterval(chatInterval);
-        clearInterval(ballFollowInterval);
+        clearInterval(moveInterval);
         clearInterval(healthCheck);
-        
-        // Soltar todas las teclas al finalizar
-        // (No es necesario ya que usamos press() en lugar de down/up)
         
     } catch (error) {
         console.error("❌ Error durante la ejecución del bot:", error);
