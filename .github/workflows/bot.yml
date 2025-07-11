@@ -18,11 +18,15 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies and rebuild native modules
+      - name: Install build essential tools
         run: |
-          npm cache clean --force # Clear the npm cache to ensure fresh downloads
-          npm install --unsafe-perm # Install dependencies, allowing unsafe permissions for native module compilation
-          npm rebuild @koush/wrtc # Explicitly rebuild the wrtc module
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3
+
+      - name: Install dependencies
+        run: |
+          npm cache clean --force
+          npm install --unsafe-perm # This should now have the necessary tools to compile wrtc
 
       - name: Run bots batch ${{ matrix.batch }}
         env:
