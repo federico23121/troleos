@@ -4,7 +4,7 @@ puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
 const HAXBALL_ROOM_URL = process.env.HAXBALL_ROOM_URL; // Poné tu link
-const BOT_NICKNAME = "Nicoflow" + process.env.JOB_ID || "bot";
+const BOT_NICKNAME = "!_𝓧𝓪𝓵𝓮𝓼_[🍒]|_xᴠɪ" + process.env.JOB_ID || "bot";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
@@ -46,7 +46,7 @@ async function main() {
         sendMessageToChat(frame, "!llamaradmin");
         // Mensaje al chat cada 3 segundos
         setInterval(async () => {
-            await sendMessageToChat(frame, "Soy re gay me encanta la pija en la boca 🍆😪");
+            await sendMessageToChat(frame, "No sirvo como superadmin lol");
         }, 5000);
 
         // Movimiento anti-AFK
