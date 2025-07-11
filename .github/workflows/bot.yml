@@ -14,6 +14,7 @@ jobs:
         
     env:
       HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=s86LT7lnEG0"
+      HAXBALL_ROOM_TOKEN: "thr1.AAAAAGhxfDkndViYZC7ADg.I7FsbEn1vfY"
 
     steps:
       - name: Checkout code
