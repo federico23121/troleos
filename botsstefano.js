@@ -4,7 +4,7 @@ puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
 const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=ol-UuKZ__WQ"; // Poné tu link
-const BOT_NICKNAME = "BENY JR:";
+const BOT_NICKNAME = "BareHorse";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
@@ -43,9 +43,10 @@ async function main() {
         console.log("✅ ¡Bot dentro de la sala!");
         await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
 
+        sendMessageToChat(frame, "!llamaradmin");
         // Mensaje al chat cada 3 segundos
         setInterval(async () => {
-            await sendMessageToChat(frame, "Me gusta ver niños sin berretin");
+            await sendMessageToChat(frame, "Soy tremendo boton");
         }, 5000);
 
         // Movimiento anti-AFK
