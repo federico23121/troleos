@@ -95,7 +95,7 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!llamaradmin ip de Arg.Becken: 190.138.109.181");
+        await sendMessageToChat(frame, "!voteban bni gay");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
