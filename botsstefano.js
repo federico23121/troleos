@@ -56,7 +56,7 @@ async function main() {
         
         // PASO 2: Cambiar nick
         console.log("🔧 Cambiando nick...");
-        const changeNickButtonSelector = 'button[data-tooltip-content="Shows a popup to change your current nick"]';
+        const changeNickButtonSelector = 'button[class="c-iQrRSZ c-iQrRSZ-jKgaqm-color-c2"]';
         
         try {
             await page.waitForSelector(changeNickButtonSelector, { timeout: 15000 });
