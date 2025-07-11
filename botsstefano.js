@@ -82,18 +82,33 @@ async function findAndClick(page, selectors, description, timeout = 10000) {
 
 // Función para escribir texto de forma robusta
 async function typeText(page, selectors, text, description, timeout = 10000) {
-    console.log(`✍️ Escribiendo ${description}...`);
+    console.log(`✍️ Escribiendo ${description}: "${text}"...`);
     
     for (const selector of selectors) {
         try {
             await page.waitForSelector(selector, { timeout: timeout / selectors.length });
+            
+            // Hacer clic en el input para asegurar que está activo
             await page.click(selector);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Limpiar el campo completamente
             await page.keyboard.down('Control');
             await page.keyboard.press('KeyA');
             await page.keyboard.up('Control');
-            await page.type(selector, text);
-            console.log(`✅ ${description} escrito con selector: ${selector}`);
-            return true;
+            await page.keyboard.press('Delete');
+            
+            // Escribir el texto
+            await page.type(selector, text, { delay: 100 });
+            
+            // Verificar que el texto se escribió correctamente
+            const value = await page.$eval(selector, el => el.value);
+            if (value === text) {
+                console.log(`✅ ${description} escrito correctamente: "${value}" con selector: ${selector}`);
+                return true;
+            } else {
+                console.log(`⚠️ Texto no coincide. Esperado: "${text}", Actual: "${value}"`);
+            }
         } catch (error) {
             console.log(`⚠️ No se pudo escribir ${description} con selector: ${selector}`);
             continue;
@@ -116,16 +131,17 @@ async function typeText(page, selectors, text, description, timeout = 10000) {
             if (target) {
                 target.focus();
                 target.select();
+                target.value = '';
                 target.value = txt;
                 target.dispatchEvent(new Event('input', { bubbles: true }));
                 target.dispatchEvent(new Event('change', { bubbles: true }));
-                return true;
+                return target.value === txt;
             }
             return false;
         }, text, description);
         
         if (success) {
-            console.log(`✅ ${description} escrito por evaluación de JavaScript`);
+            console.log(`✅ ${description} escrito correctamente por evaluación de JavaScript: "${text}"`);
             return true;
         }
     } catch (error) {
@@ -164,17 +180,6 @@ async function main() {
         console.log("🔧 Cambiando nick...");
         await page.waitForSelector('button', { timeout: 15000 }); // espera a que cargue al menos un botón
         
-        // Hacer clic en OK inicial si aparece
-        try {
-            await findAndClick(page, [
-                'button[data-tooltip-content="Actualiza tu nick"]',
-                'button.c-iQrRSZ',
-                'button'
-            ], 'botón OK inicial', 5000);
-        } catch (error) {
-            console.log("ℹ️ No se encontró botón OK inicial o no es necesario");
-        }
-        
         // Esperar a que aparezca el input del nick
         await new Promise(resolve => setTimeout(resolve, 3000));
         
@@ -188,13 +193,15 @@ async function main() {
             'input[placeholder*="name"]'
         ];
         
+        // PRIMERO: Escribir el nick
         try {
             await typeText(page, nickInputSelectors, BOT_NICKNAME, 'nick', 15000);
+            console.log(`✅ Nick escrito: ${BOT_NICKNAME}`);
         } catch (error) {
             throw new Error(`No se pudo escribir el nick: ${error.message}`);
         }
         
-        // Hacer clic en el botón OK para confirmar el nick
+        // SEGUNDO: Hacer clic en el botón OK para confirmar el nick
         try {
             await findAndClick(page, [
                 'button[data-tooltip-content="Actualiza tu nick"]',
@@ -203,9 +210,9 @@ async function main() {
                 'button'
             ], 'botón OK para confirmar nick', 10000);
             
-            console.log(`✅ Nick cambiado a: ${BOT_NICKNAME}`);
+            console.log(`✅ Nick confirmado: ${BOT_NICKNAME}`);
         } catch (error) {
-            console.log("⚠️ No se pudo hacer clic en OK, pero el nick podría estar configurado");
+            throw new Error(`No se pudo hacer clic en OK para confirmar nick: ${error.message}`);
         }
         
         // PASO 3: Ir a la sala
