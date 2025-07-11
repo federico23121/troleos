@@ -175,27 +175,26 @@ async function main() {
             page.goto(NODE_HAXBALL_URL, { waitUntil: 'networkidle2' }),
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al cargar node-haxball')), 30000))
         ]);
-        
 // --- Inside your main() function ---
 
 // PASO 2: Cambiar nick
 console.log("🔧 Cambiando nick...");
 
-// Wait for the popup to be visible. We can target its unique title.
-const popupTitleSelector = 'h1.c-eXwJve:contains("Elegir nick")';
+// Define stable selectors that don't use generated class names.
+const nickInputSelector = 'input[type="text"]';
+const okButtonSelector = 'button:contains("OK")';
+
+// Wait directly for the input field to be ready. This is our most reliable sign the popup is active.
 try {
-    await page.waitForSelector(popupTitleSelector, { timeout: 15000 });
-    console.log("✅ Popup 'Elegir nick' encontrado.");
+    await page.waitForSelector(nickInputSelector, { timeout: 15000 });
+    console.log("✅ Popup con campo de nick encontrado.");
 } catch (error) {
-    throw new Error("No se encontró el popup para elegir nick a tiempo.");
+    throw new Error("No se encontró el campo de texto para el nick a tiempo.");
 }
 
-// Selectors within the popup context
-const nickInputSelector = 'div.c-eVIWsa input[type="text"]';
-const okButtonSelector = 'button.c-iQrRSZ:contains("OK")';
-
-// PRIMERO: Escribir el nick en el popup
+// PRIMERO: Escribir el nick en el input
 try {
+    // We already know the selector works because we waited for it.
     await typeText(page, [nickInputSelector], BOT_NICKNAME, 'nick en popup', 10000);
     console.log(`✅ Nick escrito en popup: ${BOT_NICKNAME}`);
 } catch (error) {
@@ -210,7 +209,7 @@ try {
     throw new Error(`No se pudo hacer clic en el botón OK del popup: ${error.message}`);
 }
 
-// ... rest of your code        
+// ... rest of your code      
         // PASO 3: Ir a la sala
         console.log("🚪 Yendo a la sala...");
         await Promise.race([
