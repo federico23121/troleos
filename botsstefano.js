@@ -95,12 +95,12 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!voteban bni gay");
+        await sendMessageToChat(frame, "!");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "Raideados por Stefano365P");
+                await sendMessageToChat(frame, "!help");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
@@ -215,5 +215,34 @@ async function sendMessageToChat(frame, message) {
     }
 }
 
-// Iniciar el bot
-main();
+let intentos = 0;
+const MAX_INTENTOS = 3;
+
+async function iniciarBotConReintentos() {
+    while (intentos < MAX_INTENTOS) {
+        try {
+            intentos++;
+            console.log(`🔁 Intento ${intentos} de ${MAX_INTENTOS}`);
+            await main();
+            break; // Si main termina exitosamente, salimos del bucle
+        } catch (error) {
+            console.error(`❌ Intento ${intentos} fallido:`, error.message);
+
+            // Enviar aviso a Discord si falla
+            await notifyDiscord(`🔴 Fallo en intento ${intentos} para el bot **${BOT_NICKNAME}**. Error: ${error.message}`);
+
+            if (intentos >= MAX_INTENTOS) {
+                console.error("🚫 Máximo de intentos alcanzado. Abortando.");
+                await notifyDiscord(`❌ El bot **${BOT_NICKNAME}** falló tras ${MAX_INTENTOS} intentos.`);
+                process.exit(1);
+            }
+
+            // Esperar 5 segundos antes de intentar de nuevo
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
+    }
+}
+
+// Iniciar con reintentos
+iniciarBotConReintentos();
+
