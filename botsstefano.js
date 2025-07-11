@@ -106,7 +106,7 @@ async function main() {
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 500);
+        }, 2000);
         
         // Movimiento anti-AFK con manejo de errores
         let moves = ['w', 'a', 's', 'd'];
