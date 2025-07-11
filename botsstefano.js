@@ -46,7 +46,7 @@ async function main() {
         // Mensaje al chat cada 3 segundos
         setInterval(async () => {
             await sendMessageToChat(frame, "Me gusta ver niños sin berretin");
-        }, 1500);
+        }, 5000);
 
         // Movimiento anti-AFK
         let moves = ['w', 'a', 's', 'd'];
