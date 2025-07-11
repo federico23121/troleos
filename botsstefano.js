@@ -177,14 +177,14 @@ async function main() {
                     // Soltar teclas que ya no necesitamos
                     for (let key of currentKeys) {
                         if (!newKeys.has(key)) {
-                            await frame.keyboard.up(key);
+                            await page.keyboard.up(key);
                         }
                     }
                     
                     // Presionar nuevas teclas
                     for (let key of newKeys) {
                         if (!currentKeys.has(key)) {
-                            await frame.keyboard.down(key);
+                            await page.keyboard.down(key);
                         }
                     }
                     
@@ -237,7 +237,7 @@ async function main() {
                 clearInterval(ballFollowInterval);
                 throw new Error('Perdida de conexión con el servidor');
             }
-        }, 500);
+        }, 30000);
         
         // Mantenerlo vivo 1 hora
         await new Promise(resolve => setTimeout(resolve, 3600000));
@@ -248,11 +248,7 @@ async function main() {
         clearInterval(healthCheck);
         
         // Soltar todas las teclas al finalizar
-        for (let key of currentKeys) {
-            try {
-                await frame.keyboard.up(key);
-            } catch (e) {}
-        }
+        // (No es necesario ya que usamos press() en lugar de down/up)
         
     } catch (error) {
         console.error("❌ Error durante la ejecución del bot:", error);
