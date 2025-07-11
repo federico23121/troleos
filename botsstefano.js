@@ -3,8 +3,8 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
-const HAXBALL_ROOM_URL = "https://www.haxball.com/play?c=i5DSNwY5pyA"; // Poné tu link
-const BOT_NICKNAME = "Miku Hatsune gei";
+const HAXBALL_ROOM_URL = process.env.HAXBALL_ROOM_URL; // Poné tu link
+const BOT_NICKNAME = process.env.JOB_ID || "bot";
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
