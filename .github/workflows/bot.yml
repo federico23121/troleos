@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        batch: [1,2,3,4,5,6,7,8,9,10]
+        batch: [1,2,3,4,5,6,7,8,9,10]  # 10 batches x 7 bots = 70 bots
     steps:
       - uses: actions/checkout@v3
 
@@ -17,16 +17,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Install build essential tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential python3
+          # Habilita el cache para acelerar las instalaciones
+          cache: 'npm'
 
       - name: Install dependencies
+        # Usa 'npm ci' para una instalación limpia y rápida.
+        # Luego, reconstruye el módulo problemático desde la fuente.
         run: |
-          npm cache clean --force
-          npm install --unsafe-perm # This should now have the necessary tools to compile wrtc
+          npm ci
+          npm rebuild @koush/wrtc --build-from-source
 
       - name: Run bots batch ${{ matrix.batch }}
         env:
