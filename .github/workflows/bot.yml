@@ -26,6 +26,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          
+      - name: Setup Haxball.js
+        run: |
+          npm install haxball.js
 
       - name: Instalar dependencias limpias (incluye puppeteer completo)
         run: |
