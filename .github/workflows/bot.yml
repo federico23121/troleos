@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "1"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "2"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "3"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "4"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "5"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "6"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -86,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "7"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "8"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -112,7 +112,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "9"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -125,7 +125,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "10"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -138,7 +138,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "11"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -151,7 +151,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "12"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -164,7 +164,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "13"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -177,7 +177,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "14"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -190,7 +190,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "15"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -203,7 +203,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "16"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -216,7 +216,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "17"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -229,7 +229,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JOB_ID: "18"
-      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=4cAd_nLiZyQ"
+      HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=FWpzgqVJx_M"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
