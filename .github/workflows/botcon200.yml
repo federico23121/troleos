@@ -1,4 +1,4 @@
-name: Haxball Bot Runner
+name: 200 bots
 
 on:
   workflow_dispatch:
