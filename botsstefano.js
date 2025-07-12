@@ -104,7 +104,7 @@ await page.evaluateOnNewDocument(() => {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "llamaradmin caca");
+        await sendMessageToChat(frame, "!llamaradmin caca");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
