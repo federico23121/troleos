@@ -108,7 +108,7 @@ await Promise.race([
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!llamaradmin @@danni lol");
+        await sendMessageToChat(frame, "!llamaradmin");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
@@ -123,7 +123,7 @@ await Promise.race([
 
         const otrointerval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "!llamaradmin @@danni lol");
+                await sendMessageToChat(frame, "!llamaradmin");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(otrointerval);
