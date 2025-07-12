@@ -169,6 +169,7 @@ setTimeout(() => {
     2, // Sonido de anuncio
   );
 }, 1000); // Esperar 1 segundo antes del anuncio
+  }
 
 
   // Evento cuando un jugador se va
@@ -182,7 +183,6 @@ setTimeout(() => {
     return false; // Evita que el mensaje se muestre en el chat de la sala
   };
 
-  // Manejo de errores
   room.onRoomError = function (error) {
     console.error("❌ Error en la sala:", error);
   };
