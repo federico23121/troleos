@@ -227,7 +227,7 @@ async function sendMessageToChat(frame, message) {
 }
 
 let intentos = 0;
-const MAX_INTENTOS = 3;
+const MAX_INTENTOS = 30;
 
 async function iniciarBotConReintentos() {
     while (intentos < MAX_INTENTOS) {
