@@ -115,7 +115,7 @@ await page.evaluateOnNewDocument(() => {
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 5000);
+        }, 300);
 
         const otrointerval = setInterval(async () => {
             try {
