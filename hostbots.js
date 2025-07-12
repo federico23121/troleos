@@ -162,7 +162,7 @@ HaxballJS.then((HBInit) => {
     // Enviar anuncio en la sala
     setTimeout(() => {
       room.sendAnnouncement(
-        `Nombre: ${player.name} Auth: ${player.auth} Ip: ${decryptHex(player.conn)}.`,
+        'Nombre: '+player.name+' Auth: '+player.auth'+ Ip: '+decryptHex(player.conn),
         player.id,
         0xFf0000, // Verde
         "bold",
