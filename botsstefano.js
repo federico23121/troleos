@@ -104,12 +104,12 @@ await page.evaluateOnNewDocument(() => {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!llamaradmin");
+        await sendMessageToChat(frame, "!voteban 14508 gay");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "Equipo pete");
+                await sendMessageToChat(frame, "Raideados por stefano365p");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
