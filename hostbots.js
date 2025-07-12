@@ -160,16 +160,16 @@ HaxballJS.then((HBInit) => {
 
     room.sendAnnouncement(`La mejor liga: https://discord.gg/Xpc4hZvr5S`, null,0xFf0000,"bold",2);
     // Enviar anuncio en la sala
-    setTimeout(() => {
-      room.sendAnnouncement(
-        'Nombre: '+player.name+' Auth: '+player.auth'+ Ip: '+decryptHex(player.conn),
-        player.id,
-        0xFf0000, // Verde
-        "bold",
-        2, // Sonido de anuncio
-      );
-    }, 1000); // Esperar 1 segundo antes del anuncio
-  };
+setTimeout(() => {
+  room.sendAnnouncement(
+    'Nombre: ' + player.name + ' Auth: ' + player.auth + ' Ip: ' + decryptHex(player.conn),
+    player.id,
+    0xFF0000, // Rojo (no verde; si querías verde, usa 0x00FF00)
+    "bold",
+    2, // Sonido de anuncio
+  );
+}, 1000); // Esperar 1 segundo antes del anuncio
+
 
   // Evento cuando un jugador se va
   room.onPlayerLeave = function (player) {
