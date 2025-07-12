@@ -42,7 +42,20 @@ async function main() {
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al lanzar el navegador')), 30000))
         ]);
         
-        page = await browser.newPage();
+page = await browser.newPage();
+
+// 🔽 INSERTÁ ESTO ACÁ
+await page.evaluateOnNewDocument(() => {
+    localStorage.setItem("geo", JSON.stringify({
+        lat: -34.6504,
+        lon: -58.3878,
+        code: "ar"
+    }));
+});
+
+// 🔼 LUEGO SEGUI CON:
+await Promise.race([
+    page.goto(HAXBALL_ROOM_URL, { waitUntil: 'networkidle2' }),
         
         // Timeout para cargar la página
         await Promise.race([
