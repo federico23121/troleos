@@ -95,7 +95,7 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!llamaradmin @@Cris_mj lol");
+        await sendMessageToChat(frame, "!llamaradmin @@danni lol");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
@@ -110,7 +110,7 @@ async function main() {
 
         const otrointerval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "!llamaradmin @@Cris_mj lol");
+                await sendMessageToChat(frame, "!llamaradmin @@danni lol");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(otrointerval);
