@@ -53,10 +53,6 @@ await page.evaluateOnNewDocument(() => {
     }));
 });
 
-// 🔼 LUEGO SEGUI CON:
-await Promise.race([
-    page.goto(HAXBALL_ROOM_URL, { waitUntil: 'networkidle2' }),
-        
         // Timeout para cargar la página
         await Promise.race([
             page.goto(HAXBALL_ROOM_URL, { waitUntil: 'networkidle2' }),
