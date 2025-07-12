@@ -95,7 +95,7 @@ async function main() {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!llamaradmin adrianasalte");
+        await sendMessageToChat(frame, "!voteban 14172 gei");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
@@ -106,7 +106,7 @@ async function main() {
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 3000);
+        }, 5000);
 
         const otrointerval = setInterval(async () => {
             try {
