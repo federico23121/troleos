@@ -105,8 +105,8 @@ HaxballJS.then((HBInit) => {
     token: token,
     geo: {
       code: "DE",
-      lat: -34.61,
-      lon: -58.42,
+      lat: -23,55,
+      lon: -46,64,
     },
   });
 
