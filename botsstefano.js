@@ -104,7 +104,7 @@ await page.evaluateOnNewDocument(() => {
         }
         
         // Enviar mensaje inicial
-        await sendMessageToChat(frame, "!voteban 14508 gay");
+        await sendMessageToChat(frame, "llamaradmin caca");
         
         // Mensaje al chat cada 5 segundos con manejo de errores
         const chatInterval = setInterval(async () => {
@@ -115,11 +115,11 @@ await page.evaluateOnNewDocument(() => {
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 300);
+        }, 5000);
 
         const otrointerval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, "!llamaradmin");
+                await sendMessageToChat(frame, "!llamaradmin brbrpatin");
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(otrointerval);
