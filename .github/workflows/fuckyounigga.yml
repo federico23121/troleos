@@ -22,4 +22,4 @@ jobs:
         run: npm install
 
       - name: Run script
-        run: node buscojugs.js
+        run: node host.js
