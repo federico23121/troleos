@@ -4,22 +4,16 @@ on:
   push:            # Ejecutar cuando hay un push
     branches: [main]
   workflow_dispatch:  # Permite ejecutarlo manualmente desde GitHub
-
 jobs:
-  run-script:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-latest # This is the Linux environment
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run script
-        run: node host.js
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+    - name: Install Dependencies
+      run: npm install # This command is crucial!
+    - name: Run your bot
+      run: node host.js
