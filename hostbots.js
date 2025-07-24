@@ -97,16 +97,16 @@ function sendPlayerInfoToDiscord(player) {
 
 HaxballJS.then((HBInit) => {
   const room = HBInit({
-    roomName: "🔵⚪ Hax365: https://discord.gg/Xpc4hZvr5S 🏆🧉",
+    roomName: "🥪🍞Todos juegan con Falca🥪🍞",
     maxPlayers: 16,
     public: true,
     noPlayer: false,
-    playerName: "Arg.Becken: 190.138.109.181",
+    playerName: "Peluca",
     token: token,
     geo: {
-      code: "DE",
-      lat: -34.61,
-      lon: -58.42,
+      code: "AR",
+      lat: -34.5670013488149,
+      lon: -58.466999049128766,
     },
   });
 
