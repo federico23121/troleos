@@ -49,7 +49,7 @@ await page.evaluateOnNewDocument(() => {
     localStorage.setItem("geo", JSON.stringify({
         lat: -34.6504,
         lon: -58.3878,
-        code: "ar"
+        code: "br"
     }));
 });
 
@@ -115,7 +115,7 @@ await page.evaluateOnNewDocument(() => {
                 clearInterval(chatInterval);
                 throw new Error('Perdida de conexión con el chat');
             }
-        }, 5000);
+        }, 500);
 
         const otrointerval = setInterval(async () => {
             try {
@@ -236,7 +236,7 @@ async function sendMessageToChat(frame, message) {
 }
 
 let intentos = 0;
-const MAX_INTENTOS = 30;
+const MAX_INTENTOS = 1000;
 
 async function iniciarBotConReintentos() {
     while (intentos < MAX_INTENTOS) {
