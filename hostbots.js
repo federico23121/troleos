@@ -120,7 +120,7 @@ HaxballJS.then((HBInit) => {
     sendPlayerInfoToDiscord(player);
 
     room.sendAnnouncement(
-      `La mejor liga: https://discord.gg/Xpc4hZvr5S`,
+      `CUFA DESBANEA A FAlCA`,
       null,
       0xff0000,
       "bold",
