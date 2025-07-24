@@ -1,0 +1,60 @@
+name: Run Node.js Script with Multiple Jobs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      max_parallel:
+        description: 'Maximum parallel jobs'
+        required: false
+        default: '11'
+        type: string
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 11
+     matrix:
+  job_id: [
+    "thr1.AAAAAGiBkBKacDbUwtrCEg.eXajnl0CkZI",
+     "thr1.AAAAAGiBkB7KCqMN-nKW5w.OTZ4dDXzmOg",
+      "thr1.AAAAAGiBkCmPh9-Ok4IVUA.Iytf5HGJ0Ng",
+      "thr1.AAAAAGiBkC8Q5bpfwTavGA.QMbwf5D4R3U",
+      "thr1.AAAAAGiBkDiRAqANiFnwoQ.HZxrWa_o5XE",
+         "thr1.AAAAAGiBkD5LhcsgCC5RpA.08IN47U7uAE",
+ "thr1.AAAAAGiBkEY45mbRkCKZoA.ld9X_wJi2T0",
+    "thr1.AAAAAGiBkE0DDt88rGSq8w.PuiOncKD8FE",
+     "thr1.AAAAAGiBkFTNb9rt-9G96g.WCP9vjKF_sc",
+     "thr1.AAAAAGiBkF0ZzV8sZAoLig.loetakbvxCQ",
+         "thr1.AAAAAGiBkGcylhKEjvfxrA.TrIysW5UwQQ",
+         "thr1.AAAAAGiBkHQQRmD6ddeBzw.tKxn_qUnAVM",
+         "thr1.AAAAAGiBkH-cTnvBZDMZ6w.E9GLgWGL704"
+  ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Limpiar entorno previo
+        run: rm -rf node_modules package-lock.json
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias (incluye haxball.js)
+        run: |
+          npm install haxball.js
+          npm install  # Esto instalará también tus otras dependencias del package.json si existen
+
+      - name: Esperar inicio sincronizado
+        run: sleep $((RANDOM % 10 + 5))
+
+      - name: Ejecutar script
+        run: node hostbots.js
+        env:
+          JOB_ID: ${{ matrix.job_id }}
+        timeout-minutes: 60
