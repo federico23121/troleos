@@ -14,8 +14,8 @@ jobs:
         
     env:
       HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=O05fiYJFPvM"
-      MENSAJE: "qonda pecausa"
-      LLAMAR_ADMIN: "qonda pecausa"
+      MENSAJE: "bbrrr brr patapim tralalero tralala"
+      LLAMAR_ADMIN: "adriana salteeeee"
 
     steps:
       - name: Checkout code
