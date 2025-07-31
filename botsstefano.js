@@ -49,7 +49,7 @@ await page.evaluateOnNewDocument(() => {
     localStorage.setItem("geo", JSON.stringify({
         lat: -34.6504,
         lon: -58.3878,
-        code: "ar"
+        code: "pe"
     }));
 });
 
