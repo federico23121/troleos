@@ -44,12 +44,30 @@ async function main() {
         
 page = await browser.newPage();
 
-// 🔽 INSERTÁ ESTO ACÁ
+const countryCodes = [
+  // América
+  "ar", "br", "uy", "cl", "mx", "co", "ve", "py", "bo", "pe", "us", "ca",
+
+  // Europa
+  "es", "fr", "de", "it", "pt", "nl", "be", "se", "no", "fi", "dk", "ie", "ch", "pl", "cz", "at", "gr", "hu", "ro", "ua", "bg",
+
+  // Asia
+  "cn", "jp", "kr", "in", "th", "sg", "ph", "id", "sa", "ae", "tr",
+
+  // África
+  "za", "ng", "eg", "ma", "dz", "ke", "gh",
+
+  // Oceanía
+  "au", "nz"
+];
+
+const randomCode = countryCodes[Math.floor(Math.random() * countryCodes.length)];
+
 await page.evaluateOnNewDocument(() => {
     localStorage.setItem("geo", JSON.stringify({
         lat: -34.6504,
         lon: -58.3878,
-        code: "pe"
+        code: randomCode
     }));
 });
 
