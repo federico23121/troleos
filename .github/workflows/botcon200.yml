@@ -14,7 +14,7 @@ jobs:
         
     env:
       HAXBALL_ROOM_URL: "https://www.haxball.com/play?c=3wd1JeX8tSg"
-      MENSAJE: "bbrrr brr patapim tralalero tralala"
+      MENSAJE: ""
       LLAMAR_ADMIN: "!llamaradmins"
 
     steps:
