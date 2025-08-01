@@ -45,18 +45,19 @@ async function main() {
 page = await browser.newPage();
 
 var haxballCountryCodes = [
-  "uy","ar","br","cn","ly","me","vi","cl","cy"
+  "uy", "ar", "br", "cn", "ly", "me", "vi", "cl", "cy"
 ];
 
 var randomCode = haxballCountryCodes[Math.floor(Math.random() * haxballCountryCodes.length)];
 
-await page.evaluateOnNewDocument(() => {
-    localStorage.setItem("geo", JSON.stringify({
-        lat: -34.6504,
-        lon: -58.3878,
-        code: randomCode || 'ar'
-    }));
-});
+await page.evaluateOnNewDocument((code) => {
+  localStorage.setItem("geo", JSON.stringify({
+    lat: -34.6504,
+    lon: -58.3878,
+    code: code || 'ar'
+  }));
+}, randomCode);
+
 
         // Timeout para cargar la página
         await Promise.race([
