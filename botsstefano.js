@@ -44,24 +44,16 @@ async function main() {
         
 page = await browser.newPage();
 
-const countryCodes = [
-  // América
-  "ar", "br", "uy", "cl", "mx", "co", "ve", "py", "bo", "pe", "us", "ca",
-
-  // Europa
-  "es", "fr", "de", "it", "pt", "nl", "be", "se", "no", "fi", "dk", "ie", "ch", "pl", "cz", "at", "gr", "hu", "ro", "ua", "bg",
-
-  // Asia
-  "cn", "jp", "kr", "in", "th", "sg", "ph", "id", "sa", "ae", "tr",
-
-  // África
-  "za", "ng", "eg", "ma", "dz", "ke", "gh",
-
-  // Oceanía
+var haxballCountryCodes = [
+  "es", "fr", "de", "pt", "it", "pl", "ro", "hu", "ru", "ua", "nl", "cz", "tr", "gr", "bg", "se", "no", "fi", "dk", "ie", "be", "ch", "at", "sk", "rs", "hr",
+  "ar", "br", "uy", "cl", "bo", "py", "pe", "ve", "co", "ec",
+  "us", "ca", "mx", "cr", "gt", "pa", "do",
+  "cn", "jp", "kr", "in", "ph", "id", "vn", "th", "my", "ae", "sa", "ir", "iq",
+  "eg", "dz", "za", "ma", "ng", "ke",
   "au", "nz"
 ];
 
-const randomCode = countryCodes[Math.floor(Math.random() * countryCodes.length)];
+var randomCode = haxballCountryCodes[Math.floor(Math.random() * haxballCountryCodes.length)];
 
 await page.evaluateOnNewDocument(() => {
     localStorage.setItem("geo", JSON.stringify({
