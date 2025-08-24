@@ -26,6 +26,27 @@ function handleCriticalError(error, context = '') {
 process.on('uncaughtException', (error) => handleCriticalError(error, 'Excepción no capturada'));
 process.on('unhandledRejection', (reason) => handleCriticalError(new Error(reason), 'Promesa rechazada'));
 
+// Función para intentar hacer click en captcha "Only humans"
+async function resolverCaptcha(frame) {
+    try {
+        // Espera 5 segundos para que el captcha aparezca
+        await frame.waitForTimeout(5000);
+        // Busca el botón del captcha "Only humans"
+        const captchaButtonSelector = 'div.recaptcha-checkbox-border'; // inspecciona tu captcha real si cambia
+        const captchaButton = await frame.$(captchaButtonSelector);
+        if (captchaButton) {
+            console.log("🟢 Detectado captcha 'Only humans', haciendo click...");
+            await captchaButton.click();
+            await frame.waitForTimeout(2000); // espera que la sala cargue
+            console.log("✅ Captcha completado");
+        } else {
+            console.log("ℹ️ No se detectó captcha, continuando...");
+        }
+    } catch (e) {
+        console.log("ℹ️ No se encontró captcha o ya estaba completado");
+    }
+}
+
 async function main() {
     const HAXBALL_ROOM_URL = getRoomForJob();
     console.log(`🤖 Bot ${BOT_NICKNAME} entrando a: ${HAXBALL_ROOM_URL}`);
@@ -51,37 +72,42 @@ async function main() {
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al cargar la página')), 30000))
         ]);
 
-        await page.waitForSelector('iframe');
+        // Detectar captcha "Only humans"
         const iframeElement = await page.$('iframe');
-        const frame = await iframeElement.contentFrame();
+        if (iframeElement) {
+            const frame = await iframeElement.contentFrame();
+            if (frame) {
+                await resolverCaptcha(frame);
+            }
+        }
 
-        if (!frame) throw new Error('No se pudo acceder al iframe de Haxball');
+        const mainFrame = (await page.frames())[0]; // frame principal
 
         console.log("Escribiendo el nombre de usuario...");
         const nickSelector = 'input[data-hook="input"][maxlength="25"]';
-        await frame.waitForSelector(nickSelector, { timeout: 15000 });
-        await frame.type(nickSelector, BOT_NICKNAME);
+        await mainFrame.waitForSelector(nickSelector, { timeout: 15000 });
+        await mainFrame.type(nickSelector, BOT_NICKNAME);
 
         console.log("Haciendo clic en 'Join'...");
         const joinButtonSelector = 'button[data-hook="ok"]';
-        await frame.waitForSelector(joinButtonSelector, { timeout: 15000 });
-        await frame.click(joinButtonSelector);
+        await mainFrame.waitForSelector(joinButtonSelector, { timeout: 15000 });
+        await mainFrame.click(joinButtonSelector);
 
         console.log("Esperando a que cargue la sala...");
         await new Promise(resolve => setTimeout(resolve, 5000));
 
         const chatSelector = 'input[data-hook="input"][maxlength="140"]';
-        await frame.waitForSelector(chatSelector, { timeout: 10000 });
+        await mainFrame.waitForSelector(chatSelector, { timeout: 10000 });
         console.log("✅ ¡Bot dentro de la sala!");
         await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
 
         // Mensaje inicial
-        await sendMessageToChat(frame, process.env.LLAMAR_ADMIN);
+        await sendMessageToChat(mainFrame, process.env.LLAMAR_ADMIN);
 
         // Mensaje repetido cada 5 segundos
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(frame, process.env.MENSAJE);
+                await sendMessageToChat(mainFrame, process.env.MENSAJE);
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
@@ -108,7 +134,7 @@ async function main() {
         // Health check
         const healthCheck = setInterval(async () => {
             try {
-                await frame.waitForSelector(chatSelector, { timeout: 5000 });
+                await mainFrame.waitForSelector(chatSelector, { timeout: 5000 });
                 console.log("✅ Conexión activa");
             } catch (error) {
                 console.error("❌ Fallo en verificación de conexión");
