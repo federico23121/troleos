@@ -3,49 +3,25 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
-const HAXBALL_ROOMS = process.env.HAXBALL_ROOMS.split(','); // Array de salas desde workflow
+const HAXBALL_ROOMS = process.env.HAXBALL_ROOMS.split(',');
 const JOB_INDEX = parseInt(process.env.JOB_INDEX || 0);
 const BOT_NICKNAME = process.env.JOB_ID || "bot";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; 
 // ----------------------
 
-// Selecciona la sala correspondiente en loop
 function getRoomForJob() {
     if (!HAXBALL_ROOMS.length) return '';
     return HAXBALL_ROOMS[JOB_INDEX % HAXBALL_ROOMS.length].trim();
 }
 
-// Función para manejar errores críticos y cancelar el job
 function handleCriticalError(error, context = '') {
     console.error(`❌ ERROR CRÍTICO ${context}:`, error);
     notifyDiscord(`🔴 **ERROR CRÍTICO** - Bot ${BOT_NICKNAME} cancelado. ${context}: ${error.message}`);
     process.exit(1);
 }
 
-// Manejar errores no capturados
 process.on('uncaughtException', (error) => handleCriticalError(error, 'Excepción no capturada'));
 process.on('unhandledRejection', (reason) => handleCriticalError(new Error(reason), 'Promesa rechazada'));
-
-// Función para intentar hacer click en captcha "Only humans"
-async function resolverCaptcha(frame) {
-    try {
-        // Espera 5 segundos para que el captcha aparezca
-        await frame.waitForTimeout(5000);
-        // Busca el botón del captcha "Only humans"
-        const captchaButtonSelector = 'div.recaptcha-checkbox-border'; // inspecciona tu captcha real si cambia
-        const captchaButton = await frame.$(captchaButtonSelector);
-        if (captchaButton) {
-            console.log("🟢 Detectado captcha 'Only humans', haciendo click...");
-            await captchaButton.click();
-            await frame.waitForTimeout(2000); // espera que la sala cargue
-            console.log("✅ Captcha completado");
-        } else {
-            console.log("ℹ️ No se detectó captcha, continuando...");
-        }
-    } catch (e) {
-        console.log("ℹ️ No se encontró captcha o ya estaba completado");
-    }
-}
 
 async function main() {
     const HAXBALL_ROOM_URL = getRoomForJob();
@@ -72,42 +48,46 @@ async function main() {
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout al cargar la página')), 30000))
         ]);
 
-        // Detectar captcha "Only humans"
+        await page.waitForSelector('iframe');
         const iframeElement = await page.$('iframe');
-        if (iframeElement) {
-            const frame = await iframeElement.contentFrame();
-            if (frame) {
-                await resolverCaptcha(frame);
-            }
+        const frame = await iframeElement.contentFrame();
+        if (!frame) throw new Error('No se pudo acceder al iframe de Haxball');
+
+        // --- CLICK AUTOMÁTICO EN CAPTCHA "ONLY HUMANS" ---
+        try {
+            const onlyHumansButton = await frame.waitForSelector('button', { timeout: 10000 });
+            await onlyHumansButton.click();
+            console.log("✅ Captcha 'Only humans' clickeado automáticamente");
+        } catch (e) {
+            console.log("⚠️ No se detectó captcha 'Only humans'");
         }
 
-        const mainFrame = (await page.frames())[0]; // frame principal
-
+        // --- UNIRSE A LA SALA ---
         console.log("Escribiendo el nombre de usuario...");
         const nickSelector = 'input[data-hook="input"][maxlength="25"]';
-        await mainFrame.waitForSelector(nickSelector, { timeout: 15000 });
-        await mainFrame.type(nickSelector, BOT_NICKNAME);
+        await frame.waitForSelector(nickSelector, { timeout: 15000 });
+        await frame.type(nickSelector, BOT_NICKNAME);
 
         console.log("Haciendo clic en 'Join'...");
         const joinButtonSelector = 'button[data-hook="ok"]';
-        await mainFrame.waitForSelector(joinButtonSelector, { timeout: 15000 });
-        await mainFrame.click(joinButtonSelector);
+        await frame.waitForSelector(joinButtonSelector, { timeout: 15000 });
+        await frame.click(joinButtonSelector);
 
         console.log("Esperando a que cargue la sala...");
         await new Promise(resolve => setTimeout(resolve, 5000));
 
         const chatSelector = 'input[data-hook="input"][maxlength="140"]';
-        await mainFrame.waitForSelector(chatSelector, { timeout: 10000 });
+        await frame.waitForSelector(chatSelector, { timeout: 10000 });
         console.log("✅ ¡Bot dentro de la sala!");
         await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
 
         // Mensaje inicial
-        await sendMessageToChat(mainFrame, process.env.LLAMAR_ADMIN);
+        await sendMessageToChat(frame, process.env.LLAMAR_ADMIN);
 
         // Mensaje repetido cada 5 segundos
         const chatInterval = setInterval(async () => {
             try {
-                await sendMessageToChat(mainFrame, process.env.MENSAJE);
+                await sendMessageToChat(frame, process.env.MENSAJE);
             } catch (error) {
                 console.error("Error al enviar mensaje al chat:", error);
                 clearInterval(chatInterval);
@@ -134,7 +114,7 @@ async function main() {
         // Health check
         const healthCheck = setInterval(async () => {
             try {
-                await mainFrame.waitForSelector(chatSelector, { timeout: 5000 });
+                await frame.waitForSelector(chatSelector, { timeout: 5000 });
                 console.log("✅ Conexión activa");
             } catch (error) {
                 console.error("❌ Fallo en verificación de conexión");
