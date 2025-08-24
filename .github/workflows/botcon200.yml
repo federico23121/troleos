@@ -245,7 +245,7 @@ jobs:
           npm ci
 
       - name: Ejecutar bot
-        run: node botstefano.js
+        run: node botsstefano.js
         env:
           JOB_INDEX: ${{ matrix.job_index }}
           JOB_ID: ${{ matrix.job_id }}
