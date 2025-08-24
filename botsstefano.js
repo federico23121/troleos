@@ -3,23 +3,26 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
-const HAXBALL_ROOMS = process.env.HAXBALL_ROOMS.split(',');
+const HAXBALL_ROOMS = process.env.HAXBALL_ROOMS.split(','); // Array de salas desde workflow
 const JOB_INDEX = parseInt(process.env.JOB_INDEX || 0);
 const BOT_NICKNAME = process.env.JOB_ID || "bot";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; 
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
 // ----------------------
 
+// Selecciona la sala correspondiente en loop
 function getRoomForJob() {
     if (!HAXBALL_ROOMS.length) return '';
     return HAXBALL_ROOMS[JOB_INDEX % HAXBALL_ROOMS.length].trim();
 }
 
+// Función para manejar errores críticos y cancelar el job
 function handleCriticalError(error, context = '') {
     console.error(`❌ ERROR CRÍTICO ${context}:`, error);
     notifyDiscord(`🔴 **ERROR CRÍTICO** - Bot ${BOT_NICKNAME} cancelado. ${context}: ${error.message}`);
     process.exit(1);
 }
 
+// Manejar errores no capturados
 process.on('uncaughtException', (error) => handleCriticalError(error, 'Excepción no capturada'));
 process.on('unhandledRejection', (reason) => handleCriticalError(new Error(reason), 'Promesa rechazada'));
 
@@ -51,22 +54,25 @@ async function main() {
         await page.waitForSelector('iframe');
         const iframeElement = await page.$('iframe');
         const frame = await iframeElement.contentFrame();
+
         if (!frame) throw new Error('No se pudo acceder al iframe de Haxball');
 
-        // --- CLICK AUTOMÁTICO EN CAPTCHA "ONLY HUMANS" ---
-        try {
-            const onlyHumansButton = await frame.waitForSelector('button', { timeout: 10000 });
-            await onlyHumansButton.click();
-            console.log("✅ Captcha 'Only humans' clickeado automáticamente");
-        } catch (e) {
-            console.log("⚠️ No se detectó captcha 'Only humans'");
-        }
-
-        // --- UNIRSE A LA SALA ---
         console.log("Escribiendo el nombre de usuario...");
         const nickSelector = 'input[data-hook="input"][maxlength="25"]';
         await frame.waitForSelector(nickSelector, { timeout: 15000 });
         await frame.type(nickSelector, BOT_NICKNAME);
+        await frame.keyboard.press('Enter');
+
+        // Esperar unos segundos a que aparezca el captcha
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        try {
+            const onlyHumansButton = await frame.waitForSelector('button', { timeout: 5000 });
+            await onlyHumansButton.click();
+            console.log("✅ Captcha 'Only humans' clickeado automáticamente");
+        } catch (e) {
+            console.log("ℹ️ No apareció captcha o ya fue completado");
+        }
 
         console.log("Haciendo clic en 'Join'...");
         const joinButtonSelector = 'button[data-hook="ok"]';
