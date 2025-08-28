@@ -60,8 +60,11 @@ async function main() {
         console.log("Escribiendo el nombre de usuario...");
         const nickSelector = 'input[data-hook="input"][maxlength="25"]';
         await frame.waitForSelector(nickSelector, { timeout: 15000 });
-        await frame.type(nickSelector, BOT_NICKNAME);
-        await frame.keyboard.press('Enter');
+        const nickInput = await frame.$(nickSelector);
+        if (!nickInput) throw new Error('No se encontró el input del nickname');
+        await nickInput.click();
+        await nickInput.type(BOT_NICKNAME);
+        await nickInput.press('Enter');
 
         // Esperar unos segundos a que aparezca el captcha
         await new Promise(resolve => setTimeout(resolve, 5000));
@@ -163,6 +166,7 @@ async function notifyDiscord(message) {
 
 async function sendMessageToChat(frame, message) {
     try {
+        if (!message) return;
         const chatSelector = 'input[data-hook="input"][maxlength="140"]';
         await frame.waitForSelector(chatSelector, { timeout: 5000 });
         const chatInput = await frame.$(chatSelector);
