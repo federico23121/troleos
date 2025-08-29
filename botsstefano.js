@@ -77,6 +77,7 @@ async function main() {
             console.log("ℹ️ No apareció captcha o ya fue completado");
         }
 
+        // 🔧 FIX: Volvemos al comportamiento de antes para el botón Join
         console.log("Haciendo clic en 'Join'...");
         const joinButtonSelector = 'button[data-hook="ok"]';
         await frame.waitForSelector(joinButtonSelector, { timeout: 15000 });
@@ -204,3 +205,4 @@ async function iniciarBotConReintentos() {
 }
 
 iniciarBotConReintentos();
+
