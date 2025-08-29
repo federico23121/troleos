@@ -3,11 +3,10 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // --- CONFIGURACIÓN ---
-const HAXBALL_ROOMS = process.env.HAXBALL_ROOMS.split(','); // Array de salas desde workflow
+const HAXBALL_ROOMS = process.env.HAXBALL_ROOMS.split(',');
 const JOB_INDEX = parseInt(process.env.JOB_INDEX || 0);
 const BOT_NICKNAME = process.env.JOB_ID || "bot";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm"; // Tu webhook
-// ----------------------
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1393006720237961267/lxg_qUjPdnitvXt-aGzAwthMMwNbXyZIbPcgRVfGCSuLldynhFHJdsyC4sSH-Ymli5Xm";
 
 // Selecciona la sala correspondiente en loop
 function getRoomForJob() {
@@ -15,14 +14,13 @@ function getRoomForJob() {
     return HAXBALL_ROOMS[JOB_INDEX % HAXBALL_ROOMS.length].trim();
 }
 
-// Función para manejar errores críticos y cancelar el job
+// Función para manejar errores críticos
 function handleCriticalError(error, context = '') {
     console.error(`❌ ERROR CRÍTICO ${context}:`, error);
     notifyDiscord(`🔴 **ERROR CRÍTICO** - Bot ${BOT_NICKNAME} cancelado. ${context}: ${error.message}`);
     process.exit(1);
 }
 
-// Manejar errores no capturados
 process.on('uncaughtException', (error) => handleCriticalError(error, 'Excepción no capturada'));
 process.on('unhandledRejection', (reason) => handleCriticalError(new Error(reason), 'Promesa rechazada'));
 
@@ -57,38 +55,31 @@ async function main() {
 
         if (!frame) throw new Error('No se pudo acceder al iframe de Haxball');
 
+        // Escribir nickname y presionar Enter
         console.log("Escribiendo el nombre de usuario...");
         const nickSelector = 'input[data-hook="input"][maxlength="25"]';
         await frame.waitForSelector(nickSelector, { timeout: 15000 });
         const nickInput = await frame.$(nickSelector);
-        if (!nickInput) throw new Error('No se encontró el input del nickname');
         await nickInput.click();
         await nickInput.type(BOT_NICKNAME);
         await nickInput.press('Enter');
 
-        // Esperar unos segundos a que aparezca el captcha
+        // Esperar 5 segundos antes de spamear
         await new Promise(resolve => setTimeout(resolve, 5000));
 
+        // Captcha opcional
         try {
             const onlyHumansButton = await frame.waitForSelector('button', { timeout: 5000 });
             await onlyHumansButton.click();
             console.log("✅ Captcha 'Only humans' clickeado automáticamente");
         } catch (e) {
-            console.log("ℹ️ No apareció captcha o ya fue completado");
+            console.log("ℹ️ No apareció captcha, continuando...");
         }
 
-        // 🔧 FIX: Volvemos al comportamiento de antes para el botón Join
-        console.log("Haciendo clic en 'Join'...");
-        const joinButtonSelector = 'button[data-hook="ok"]';
-        await frame.waitForSelector(joinButtonSelector, { timeout: 15000 });
-        await frame.click(joinButtonSelector);
-
-        console.log("Esperando a que cargue la sala...");
-        await new Promise(resolve => setTimeout(resolve, 5000));
-
+        // Iniciar spam en chat
         const chatSelector = 'input[data-hook="input"][maxlength="140"]';
         await frame.waitForSelector(chatSelector, { timeout: 10000 });
-        console.log("✅ ¡Bot dentro de la sala!");
+        console.log("✅ ¡Bot dentro de la sala! Comenzando a spamear...");
         await notifyDiscord(`🟢 El bot **${BOT_NICKNAME}** ha entrado a la sala.`);
 
         // Mensaje inicial
@@ -166,12 +157,11 @@ async function notifyDiscord(message) {
 }
 
 async function sendMessageToChat(frame, message) {
+    if (!message) return;
     try {
-        if (!message) return;
         const chatSelector = 'input[data-hook="input"][maxlength="140"]';
         await frame.waitForSelector(chatSelector, { timeout: 5000 });
         const chatInput = await frame.$(chatSelector);
-        if (!chatInput) throw new Error('No se encontró el input del chat');
         await chatInput.click();
         await chatInput.type(message);
         await chatInput.press('Enter');
@@ -205,4 +195,3 @@ async function iniciarBotConReintentos() {
 }
 
 iniciarBotConReintentos();
-
