@@ -126,6 +126,31 @@ async function main() {
             }
         }, 30000);
 
+        // 🚀 Escuchar mensajes de otros jugadores y enviarlos a Discord
+        await page.exposeFunction('sendToDiscord', async ({ nick, msg }) => {
+            await notifyDiscord(`💬 **${nick}**: ${msg}`);
+        });
+
+        await frame.evaluate((botNick) => {
+            const chatContainer = document.querySelector('.chat-messages'); // ajustar según el DOM real
+            if (!chatContainer) return;
+
+            const observer = new MutationObserver(mutations => {
+                for (let m of mutations) {
+                    for (let node of m.addedNodes) {
+                        if (node.nodeType === 1) {
+                            const nick = node.querySelector('.nick')?.innerText || 'Desconocido';
+                            const msg = node.querySelector('.message')?.innerText;
+                            if (msg && nick !== botNick) {
+                                window.sendToDiscord({ nick, msg });
+                            }
+                        }
+                    }
+                }
+            });
+            observer.observe(chatContainer, { childList: true });
+        }, BOT_NICKNAME);
+
         // Mantener vivo 1 hora
         await new Promise(resolve => setTimeout(resolve, 3600000));
         clearInterval(chatInterval);
