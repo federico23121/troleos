@@ -24,206 +24,206 @@ jobs:
       max-parallel: 27
       matrix:
         include:
-          - { job_index: 0, job_id: Redondo_el_goat }
-          - { job_index: 1, job_id: Redondo_bro }
-          - { job_index: 2, job_id: Redondo_max }
-          - { job_index: 3, job_id: RedondoXD }
-          - { job_index: 4, job_id: Redondo_lord }
-          - { job_index: 5, job_id: Redondo_chan }
-          - { job_index: 6, job_id: Redondo_azo }
-          - { job_index: 7, job_id: Redondo_el_bicho }
-          - { job_index: 8, job_id: Redondo_troll }
-          - { job_index: 9, job_id: Redondo_meme }
-          - { job_index: 10, job_id: Redondo_down }
-          - { job_index: 11, job_id: Redondo_kitEA }
-          - { job_index: 12, job_id: Redondo_afk }
-          - { job_index: 13, job_id: Redondo_campea }
-          - { job_index: 14, job_id: Redondo_fallido }
-          - { job_index: 15, job_id: Redondo_rancio }
-          - { job_index: 16, job_id: Redondo_bardo }
-          - { job_index: 17, job_id: Redondo_feo }
-          - { job_index: 18, job_id: Redondo_noob }
-          - { job_index: 19, job_id: Redondo_god }
-          - { job_index: 20, job_id: Redondo_trix }
-          - { job_index: 21, job_id: Redondo_baneado }
-          - { job_index: 22, job_id: Redondo_otaku }
-          - { job_index: 23, job_id: Redondo_fly }
-          - { job_index: 24, job_id: Redondo_reportado }
-          - { job_index: 25, job_id: Redondo_loco }
-          - { job_index: 26, job_id: Redondo_dios }
-          - { job_index: 27, job_id: Redondo_kun }
-          - { job_index: 28, job_id: Redondo69 }
-          - { job_index: 29, job_id: RedondoXD2 }
-          - { job_index: 30, job_id: Redondo_master }
-          - { job_index: 31, job_id: Redondo777 }
-          - { job_index: 32, job_id: Redondo_inutil }
-          - { job_index: 33, job_id: Redondo_toxic }
-          - { job_index: 34, job_id: Redondo_fede }
-          - { job_index: 35, job_id: Redondo_manco }
-          - { job_index: 36, job_id: Redondo_ardido }
-          - { job_index: 37, job_id: Redondo_lord69 }
-          - { job_index: 38, job_id: Redondochan69 }
-          - { job_index: 39, job_id: Redondo_chad }
-          - { job_index: 40, job_id: Redondo_nerf }
-          - { job_index: 41, job_id: Redondo_clon }
-          - { job_index: 42, job_id: Redondofail }
-          - { job_index: 43, job_id: Redondo_fumado }
-          - { job_index: 44, job_id: Redondo_lag }
-          - { job_index: 45, job_id: Redondo_lento }
-          - { job_index: 46, job_id: Redondo_malardo }
-          - { job_index: 47, job_id: Redondo_sinmanos }
-          - { job_index: 48, job_id: Redondo_lordxd }
-          - { job_index: 49, job_id: Redondo_fake }
-          - { job_index: 50, job_id: Redondo_zombie }
-          - { job_index: 51, job_id: Redondo_botsito }
-          - { job_index: 52, job_id: Redondo_exploit }
-          - { job_index: 53, job_id: Redondo_hacker }
-          - { job_index: 54, job_id: Redondo_virus }
-          - { job_index: 55, job_id: Redondo_spammer }
-          - { job_index: 56, job_id: Redondo_cheat }
-          - { job_index: 57, job_id: Redondo_lagazo }
-          - { job_index: 58, job_id: Redondo_noobmaster }
-          - { job_index: 59, job_id: Redondo_flamer }
-          - { job_index: 60, job_id: Redondo_gatillo }
-          - { job_index: 61, job_id: Redondo_pro }
-          - { job_index: 62, job_id: Redondo_rata }
-          - { job_index: 63, job_id: Redondo_asesino }
-          - { job_index: 64, job_id: Redondo_vengador }
-          - { job_index: 65, job_id: Redondo_legendario }
-          - { job_index: 66, job_id: Redondo_godlike }
-          - { job_index: 67, job_id: Redondo_seven }
-          - { job_index: 68, job_id: Redondo_immortal }
-          - { job_index: 69, job_id: Redondo_sombra }
-          - { job_index: 70, job_id: Redondo_titan }
-          - { job_index: 71, job_id: Redondo_zurdo }
-          - { job_index: 72, job_id: Redondo_pataflava }
-          - { job_index: 73, job_id: Redondo_gordo }
-          - { job_index: 74, job_id: Redondo_carcajada }
-          - { job_index: 75, job_id: Redondo_willyrex }
-          - { job_index: 76, job_id: Redondo_angel }
-          - { job_index: 77, job_id: Redondo_brujo }
-          - { job_index: 78, job_id: Redondo_mago }
-          - { job_index: 79, job_id: Redondo_alfa }
-          - { job_index: 80, job_id: Redondo_oculto }
-          - { job_index: 81, job_id: Redondo_bestiablo }
-          - { job_index: 82, job_id: Redondo_gladiador }
-          - { job_index: 83, job_id: Redondo_heroe }
-          - { job_index: 84, job_id: Redondo_temblor }
-          - { job_index: 85, job_id: Redondo_oscuro }
-          - { job_index: 86, job_id: Redondo_sacerdote }
-          - { job_index: 87, job_id: Redondo_guerrero }
-          - { job_index: 88, job_id: Redondo_héroe }
-          - { job_index: 89, job_id: Redondo_hipster }
-          - { job_index: 90, job_id: Redondo_mega }
-          - { job_index: 91, job_id: Redondo_rayo }
-          - { job_index: 92, job_id: Redondo_diosito }
-          - { job_index: 93, job_id: Redondo_guardian }
-          - { job_index: 94, job_id: Redondo_fenix }
-          - { job_index: 95, job_id: Redondo_huracan }
-          - { job_index: 96, job_id: Redondo_cielo }
-          - { job_index: 97, job_id: Redondo_estrella }
-          - { job_index: 98, job_id: Redondo_aquiles }
-          - { job_index: 99, job_id: Redondo_hercules }
-          - { job_index: 100, job_id: Redondo_pegaso }
-          - { job_index: 101, job_id: Redondo_montaña }
-          - { job_index: 102, job_id: Redondo_fuerza }
-          - { job_index: 103, job_id: Redondo_poder }
-          - { job_index: 104, job_id: Redondo_sabio }
-          - { job_index: 105, job_id: Redondo_luminiscente }
-          - { job_index: 106, job_id: Redondo_brujo_oscuro }
-          - { job_index: 107, job_id: Redondo_sombra_negra }
-          - { job_index: 108, job_id: Redondo_imparable }
-          - { job_index: 109, job_id: Redondo_lobo }
-          - { job_index: 110, job_id: Redondo_karma }
-          - { job_index: 111, job_id: Redondo_vampiro }
-          - { job_index: 112, job_id: Redondo_zombified }
-          - { job_index: 113, job_id: Redondo_phantom }
-          - { job_index: 114, job_id: Redondo_invencible }
-          - { job_index: 115, job_id: Redondo_rugido }
-          - { job_index: 116, job_id: Redondo_coloso }
-          - { job_index: 117, job_id: Redondo_pirata }
-          - { job_index: 118, job_id: Redondo_ninja }
-          - { job_index: 119, job_id: Redondo_espía }
-          - { job_index: 120, job_id: Redondo_anarquista }
-          - { job_index: 121, job_id: Redondo_cazador }
-          - { job_index: 122, job_id: Redondo_supernova }
-          - { job_index: 123, job_id: Redondo_apostol }
-          - { job_index: 124, job_id: Redondo_viento }
-          - { job_index: 125, job_id: Redondo_aurora }
-          - { job_index: 126, job_id: Redondo_luz }
-          - { job_index: 127, job_id: Redondo_terror }
-          - { job_index: 128, job_id: Redondo_pesadilla }
-          - { job_index: 129, job_id: Redondo_ombra }
-          - { job_index: 130, job_id: Redondo_crisol }
-          - { job_index: 131, job_id: Redondo_meteorito }
-          - { job_index: 132, job_id: Redondo_magma }
-          - { job_index: 133, job_id: Redondo_ragnarok }
-          - { job_index: 134, job_id: Redondo_infinito }
-          - { job_index: 135, job_id: Redondo_singularity }
-          - { job_index: 136, job_id: Redondo_quasar }
-          - { job_index: 137, job_id: Redondo_guerrero_oculto }
-          - { job_index: 138, job_id: Redondo_demonio }
-          - { job_index: 139, job_id: Redondo_huracan_negro }
-          - { job_index: 140, job_id: Redondo_matriz }
-          - { job_index: 141, job_id: Redondo_enigma }
-          - { job_index: 142, job_id: Redondo_sombra_roja }
-          - { job_index: 143, job_id: Redondo_terremoto }
-          - { job_index: 144, job_id: Redondo_fuerza_imparable }
-          - { job_index: 145, job_id: Redondo_rayo_cósmico }
-          - { job_index: 146, job_id: Redondo_exterminador }
-          - { job_index: 147, job_id: Redondo_mente_inmortal }
-          - { job_index: 148, job_id: Redondo_noche_infinita }
-          - { job_index: 149, job_id: Redondo_oracle }
-          - { job_index: 150, job_id: Redondo_vortex }
-          - { job_index: 151, job_id: Redondo_reaper }
-          - { job_index: 152, job_id: Redondo_sombrío }
-          - { job_index: 153, job_id: Redondo_razón }
-          - { job_index: 154, job_id: Redondo_olvido }
-          - { job_index: 155, job_id: Redondo_abismo }
-          - { job_index: 156, job_id: Redondo_fantasma }
-          - { job_index: 157, job_id: Redondo_illuminati }
-          - { job_index: 158, job_id: Redondo_darkness }
-          - { job_index: 159, job_id: Redondo_omega }
-          - { job_index: 160, job_id: Redondo_celestial }
-          - { job_index: 161, job_id: Redondo_espectro }
-          - { job_index: 162, job_id: Redondo_mistic }
-          - { job_index: 163, job_id: Redondo_mistic }
-          - { job_index: 164, job_id: Redondo_retro }
-          - { job_index: 165, job_id: Redondo_glitch }
-          - { job_index: 166, job_id: Redondo_karma69 }
-          - { job_index: 167, job_id: Redondo_shadow }
-          - { job_index: 168, job_id: Redondo_alucinante }
-          - { job_index: 169, job_id: Redondo_pixel }
-          - { job_index: 170, job_id: Redondo_blink }
-          - { job_index: 171, job_id: Redondo_timewarp }
-          - { job_index: 172, job_id: Redondo_dimension }
-          - { job_index: 173, job_id: Redondo_crack }
-          - { job_index: 174, job_id: Redondo_furia }
-          - { job_index: 175, job_id: Redondo_hype }
-          - { job_index: 176, job_id: Redondo_blaze }
-          - { job_index: 177, job_id: Redondo_blindado }
-          - { job_index: 178, job_id: Redondo_cringe }
-          - { job_index: 179, job_id: Redondo_faker }
-          - { job_index: 180, job_id: Redondo_gamer }
-          - { job_index: 181, job_id: Redondo_ban }
-          - { job_index: 182, job_id: Redondo_wtf }
-          - { job_index: 183, job_id: Redondo_pog }
-          - { job_index: 184, job_id: Redondo_nerd }
-          - { job_index: 185, job_id: Redondo_buzz }
-          - { job_index: 186, job_id: Redondo_hardcore }
-          - { job_index: 187, job_id: Redondo_cyborg }
-          - { job_index: 188, job_id: Redondo_steel }
-          - { job_index: 189, job_id: Redondo_rocket }
-          - { job_index: 190, job_id: Redondo_flash }
-          - { job_index: 191, job_id: Redondo_speed }
-          - { job_index: 192, job_id: Redondo_matrix }
-          - { job_index: 193, job_id: Redondo_beta }
-          - { job_index: 194, job_id: Redondo_glitchy }
-          - { job_index: 195, job_id: Redondo_afk69 }
-          - { job_index: 196, job_id: Redondo_bot69 }
-          - { job_index: 197, job_id: Redondo_pepega }
-          - { job_index: 198, job_id: Redondo_sus }
-          - { job_index: 199, job_id: Redondo_swag }
+          - { job_index: 0, job_id: Messi }
+- { job_index: 1, job_id: Cristiano }
+- { job_index: 2, job_id: Neymar }
+- { job_index: 3, job_id: Mbappé }
+- { job_index: 4, job_id: Haaland }
+- { job_index: 5, job_id: Lamine Yamal }
+- { job_index: 6, job_id: Cucurella }
+- { job_index: 7, job_id: Pedri }
+- { job_index: 8, job_id: Gavi }
+- { job_index: 9, job_id: Ansu Fati }
+- { job_index: 10, job_id: Vinicius }
+- { job_index: 11, job_id: Rodrygo }
+- { job_index: 12, job_id: Bellingham }
+- { job_index: 13, job_id: Modric }
+- { job_index: 14, job_id: Kroos }
+- { job_index: 15, job_id: Valverde }
+- { job_index: 16, job_id: Lewandowski }
+- { job_index: 17, job_id: Griezmann }
+- { job_index: 18, job_id: Dembélé }
+- { job_index: 19, job_id: Ferran Torres }
+- { job_index: 20, job_id: Joao Félix }
+- { job_index: 21, job_id: Joao Cancelo }
+- { job_index: 22, job_id: Sergio Ramos }
+- { job_index: 23, job_id: Casillas }
+- { job_index: 24, job_id: Xavi }
+- { job_index: 25, job_id: Iniesta }
+- { job_index: 26, job_id: Busquets }
+- { job_index: 27, job_id: Ronaldinho }
+- { job_index: 28, job_id: Ronaldo }
+- { job_index: 29, job_id: Maradona }
+- { job_index: 30, job_id: Pelé }
+- { job_index: 31, job_id: Owen }
+- { job_index: 32, job_id: Gerrard }
+- { job_index: 33, job_id: Lampard }
+- { job_index: 34, job_id: Rooney }
+- { job_index: 35, job_id: Beckham }
+- { job_index: 36, job_id: Thierry Henry }
+- { job_index: 37, job_id: Van Persie }
+- { job_index: 38, job_id: Bergkamp }
+- { job_index: 39, job_id: Eto'o }
+- { job_index: 40, job_id: Drogba }
+- { job_index: 41, job_id: Totti }
+- { job_index: 42, job_id: Pirlo }
+- { job_index: 43, job_id: Buffon }
+- { job_index: 44, job_id: De Gea }
+- { job_index: 45, job_id: Oblak }
+- { job_index: 46, job_id: Courtois }
+- { job_index: 47, job_id: Ter Stegen }
+- { job_index: 48, job_id: Neuer }
+- { job_index: 49, job_id: Kimmich }
+- { job_index: 50, job_id: Müller }
+- { job_index: 51, job_id: Lahm }
+- { job_index: 52, job_id: Reus }
+- { job_index: 53, job_id: Hummels }
+- { job_index: 54, job_id: Sané }
+- { job_index: 55, job_id: Gnabry }
+- { job_index: 56, job_id: Davies }
+- { job_index: 57, job_id: Di María }
+- { job_index: 58, job_id: Paredes }
+- { job_index: 59, job_id: De Paul }
+- { job_index: 60, job_id: Lautaro }
+- { job_index: 61, job_id: Julián Álvarez }
+- { job_index: 62, job_id: Enzo Fernández }
+- { job_index: 63, job_id: Mac Allister }
+- { job_index: 64, job_id: Romero }
+- { job_index: 65, job_id: Otamendi }
+- { job_index: 66, job_id: Lisandro Martínez }
+- { job_index: 67, job_id: Garnacho }
+- { job_index: 68, job_id: Almada }
+- { job_index: 69, job_id: Ángel Correa }
+- { job_index: 70, job_id: Banega }
+- { job_index: 71, job_id: Riquelme }
+- { job_index: 72, job_id: Tevez }
+- { job_index: 73, job_id: Higuaín }
+- { job_index: 74, job_id: Agüero }
+- { job_index: 75, job_id: Mascherano }
+- { job_index: 76, job_id: Ayala }
+- { job_index: 77, job_id: Zanetti }
+- { job_index: 78, job_id: Dibu Martínez }
+- { job_index: 79, job_id: Aimar }
+- { job_index: 80, job_id: Scaloni }
+- { job_index: 81, job_id: Tchouaméni }
+- { job_index: 82, job_id: Camavinga }
+- { job_index: 83, job_id: Rabiot }
+- { job_index: 84, job_id: Kanté }
+- { job_index: 85, job_id: Pogba }
+- { job_index: 86, job_id: Giroud }
+- { job_index: 87, job_id: Benzema }
+- { job_index: 88, job_id: Ribéry }
+- { job_index: 89, job_id: Matuidi }
+- { job_index: 90, job_id: Umtiti }
+- { job_index: 91, job_id: Varane }
+- { job_index: 92, job_id: Upamecano }
+- { job_index: 93, job_id: Saliba }
+- { job_index: 94, job_id: Koundé }
+- { job_index: 95, job_id: Theo Hernández }
+- { job_index: 96, job_id: Lucas Hernández }
+- { job_index: 97, job_id: Donnarumma }
+- { job_index: 98, job_id: Chiesa }
+- { job_index: 99, job_id: Barella }
+- { job_index: 100, job_id: Immobile }
+- { job_index: 101, job_id: Bonucci }
+- { job_index: 102, job_id: Chiellini }
+- { job_index: 103, job_id: Spinazzola }
+- { job_index: 104, job_id: Verratti }
+- { job_index: 105, job_id: Locatelli }
+- { job_index: 106, job_id: Scamacca }
+- { job_index: 107, job_id: Vlahovic }
+- { job_index: 108, job_id: Kvaratskhelia }
+- { job_index: 109, job_id: Osimhen }
+- { job_index: 110, job_id: Zielinski }
+- { job_index: 111, job_id: Brozovic }
+- { job_index: 112, job_id: Eriksen }
+- { job_index: 113, job_id: Hojlund }
+- { job_index: 114, job_id: Schmeichel }
+- { job_index: 115, job_id: Christensen }
+- { job_index: 116, job_id: De Jong }
+- { job_index: 117, job_id: Memphis }
+- { job_index: 118, job_id: Van Dijk }
+- { job_index: 119, job_id: De Ligt }
+- { job_index: 120, job_id: Malacia }
+- { job_index: 121, job_id: Dumfries }
+- { job_index: 122, job_id: Frenkie }
+- { job_index: 123, job_id: Klaassen }
+- { job_index: 124, job_id: Timber }
+- { job_index: 125, job_id: Ziyech }
+- { job_index: 126, job_id: Hakimi }
+- { job_index: 127, job_id: Bono }
+- { job_index: 128, job_id: Amrabat }
+- { job_index: 129, job_id: Ounahi }
+- { job_index: 130, job_id: En Nesyri }
+- { job_index: 131, job_id: Regragui }
+- { job_index: 132, job_id: Mahrez }
+- { job_index: 133, job_id: Salah }
+- { job_index: 134, job_id: Elneny }
+- { job_index: 135, job_id: Mané }
+- { job_index: 136, job_id: Koulibaly }
+- { job_index: 137, job_id: Onana }
+- { job_index: 138, job_id: Zambo Anguissa }
+- { job_index: 139, job_id: Iwobi }
+- { job_index: 140, job_id: Osimhen Jr }
+- { job_index: 141, job_id: Lookman }
+- { job_index: 142, job_id: Partey }
+- { job_index: 143, job_id: Kudus }
+- { job_index: 144, job_id: Ayew }
+- { job_index: 145, job_id: Mendy }
+- { job_index: 146, job_id: Keita }
+- { job_index: 147, job_id: Ndidi }
+- { job_index: 148, job_id: Iheanacho }
+- { job_index: 149, job_id: Balogun }
+- { job_index: 150, job_id: Musiala }
+- { job_index: 151, job_id: Reyna }
+- { job_index: 152, job_id: Pulisic }
+- { job_index: 153, job_id: McKennie }
+- { job_index: 154, job_id: Weah }
+- { job_index: 155, job_id: Dest }
+- { job_index: 156, job_id: Adams }
+- { job_index: 157, job_id: Aaronson }
+- { job_index: 158, job_id: Turner }
+- { job_index: 159, job_id: Davies Jr }
+- { job_index: 160, job_id: David }
+- { job_index: 161, job_id: Buchanan }
+- { job_index: 162, job_id: Eustaquio }
+- { job_index: 163, job_id: Larin }
+- { job_index: 164, job_id: Mitoma }
+- { job_index: 165, job_id: Minamino }
+- { job_index: 166, job_id: Endo }
+- { job_index: 167, job_id: Tomiyasu }
+- { job_index: 168, job_id: Kubo }
+- { job_index: 169, job_id: Son }
+- { job_index: 170, job_id: Hwang }
+- { job_index: 171, job_id: Kim Min-jae }
+- { job_index: 172, job_id: Lee Kang-in }
+- { job_index: 173, job_id: Al Dawsari }
+- { job_index: 174, job_id: Al Owais }
+- { job_index: 175, job_id: Taremi }
+- { job_index: 176, job_id: Azmoun }
+- { job_index: 177, job_id: Jahanbakhsh }
+- { job_index: 178, job_id: Almoez }
+- { job_index: 179, job_id: Afif }
+- { job_index: 180, job_id: Wu Lei }
+- { job_index: 181, job_id: Maeda }
+- { job_index: 182, job_id: Ito }
+- { job_index: 183, job_id: Tanaka }
+- { job_index: 184, job_id: Kamada }
+- { job_index: 185, job_id: Doan }
+- { job_index: 186, job_id: Sakai }
+- { job_index: 187, job_id: Yoshida }
+- { job_index: 188, job_id: Honda }
+- { job_index: 189, job_id: Kagawa }
+- { job_index: 190, job_id: Nakamura }
+- { job_index: 191, job_id: Endo Wataru }
+- { job_index: 192, job_id: Shoji }
+- { job_index: 193, job_id: Nagatomo }
+- { job_index: 194, job_id: Inui }
+- { job_index: 195, job_id: Gaku }
+- { job_index: 196, job_id: Tsubasa }
+- { job_index: 197, job_id: Wakabayashi }
+- { job_index: 198, job_id: Hyuga }
+- { job_index: 199, job_id: Misaki }
 
     env:
       HAXBALL_ROOMS: ${{ github.event.inputs.haxball_rooms }}
