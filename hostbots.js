@@ -97,16 +97,16 @@ function sendPlayerInfoToDiscord(player) {
 
 HaxballJS.then((HBInit) => {
   const room = HBInit({
-    roomName: "🔵⚪ Hax365: https://discord.gg/Xpc4hZvr5S 🏆🧉",
-    maxPlayers: 16,
+    roomName: "🌕  teleese.netlify.app   🌕",
+    maxPlayers: 29,
     public: true,
     noPlayer: false,
-    playerName: "Arg.Becken: 190.138.109.181",
+    playerName: "Jakjus",
     token: token,
     geo: {
-      code: "DE",
-      lat: -34.600001972647654,
-      lon: -58.379999832993384,
+      code: "AR",
+      lat: -34.63000107731654,
+      lon: -58.38140105843042,
     },
   });
 
@@ -120,7 +120,7 @@ HaxballJS.then((HBInit) => {
     sendPlayerInfoToDiscord(player);
 
     room.sendAnnouncement(
-      `La mejor liga: https://discord.gg/Xpc4hZvr5S`,
+      `Visita mi pagina de github: github.com/TLS345`,
       null,
       0xff0000,
       "bold",
