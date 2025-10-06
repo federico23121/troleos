@@ -97,16 +97,16 @@ function sendPlayerInfoToDiscord(player) {
 
 HaxballJS.then((HBInit) => {
   const room = HBInit({
-    roomName: "🌕  teleese.netlify.app   🌕",
-    maxPlayers: 29,
+    roomName: "🔵⚪ teleese.netlify.app 🏆🧉",
+    maxPlayers: 30,
     public: true,
     noPlayer: false,
-    playerName: "Jakjus",
+    playerName: "Programador de Haxarg",
     token: token,
     geo: {
       code: "AR",
-      lat: -34.63000107731654,
-      lon: -58.38140105843042,
+      lat: -34.59999847089476,
+      lon: -34.59999847089476,
     },
   });
 
@@ -120,7 +120,7 @@ HaxballJS.then((HBInit) => {
     sendPlayerInfoToDiscord(player);
 
     room.sendAnnouncement(
-      `Visita mi pagina de github: github.com/TLS345`,
+      `Como puedo ser programador de haxarg? si alguno sabe hablarme a mi discord: Teleese`,
       null,
       0xff0000,
       "bold",
