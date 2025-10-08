@@ -97,7 +97,7 @@ function sendPlayerInfoToDiscord(player) {
 
 HaxballJS.then((HBInit) => {
   const room = HBInit({
-    roomName: "🔵⚪ teleese.netlify.app 🏆🧉",
+    roomName: "🎀 Tralaleritas FC 🎀",
     maxPlayers: 30,
     public: true,
     noPlayer: false,
@@ -120,7 +120,7 @@ HaxballJS.then((HBInit) => {
     sendPlayerInfoToDiscord(player);
 
     room.sendAnnouncement(
-      `Como puedo ser programador de haxarg? si alguno sabe hablarme a mi discord: Teleese`,
+      `Es requisito tener 12 años para ser programador de haxarg? Discord: Teleese`,
       null,
       0xff0000,
       "bold",
